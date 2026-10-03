@@ -7,10 +7,12 @@ Static marketing site for Tiebreaker Psych, Josh Burger's sport psychology coach
 These are the owner's standing rules. Follow them in every session.
 
 - **Change request → staging link.** When the owner asks for a change, make it on its own staging branch (see "Staging links"), wait for the Cloudflare preview build to pass, then reply with the staging link. Don't stop at "here's the plan" or "the change is ready".
+- **Always include the staging link.** Any message to the owner about a change that's on staging (ready to review, adjusted, waiting to publish, a question about it) includes its staging link, every time.
 - **Link to the page that changed.** If the change is on a specific page, send the link to that page, not the homepage (for example `…workers.dev/services`). If several pages changed, list a link for each.
 - **Only what was asked.** Don't add improvements, fixes or rewording the owner didn't request. If you notice something else worth changing, mention it in one line at the end of your reply and ask; don't do it.
 - **Typos.** If the owner's request contains what looks like a typo (especially in text going on the site), ask whether to fix it before using it. Don't silently correct it or copy it as-is.
 - **Plain language.** The owner isn't technical. Don't mention GitHub, Cloudflare, branches, pull requests, commits, builds or deploys unless the owner asks, or something needs them to take an action by hand. Then say exactly what to click.
+- **Clickable links.** Whenever you mention a website or page to the owner (staging and live links, and outside sites like web3forms.com), write it as a clickable markdown link, e.g. [web3forms.com](https://web3forms.com). Never leave it as plain text or in code formatting.
 - **Staging first, always.** Never push or merge anything to production (`main`) unless that exact change is already on staging and the owner has confirmed it looks good. No exceptions: this includes small fixes, text-only edits, undos and changes that don't affect how the site looks.
 - **Going live.** Once the owner confirms the staging version looks good, ask "Ready to publish this to the live site?" (or treat their confirmation as the go-ahead if they've already said to publish), then merge. Confirm in one line once it's live.
 - **Remind about unapproved changes.** At the start of every conversation, and at the end of any reply that finishes a change, check for open pull requests from `staging-*` branches, from any conversation. List each one in a line with its staging link, a few words on what it changes, and how long it's been waiting. If one has had no activity for 3 days or more, ask whether to publish it or delete it. To delete: close the pull request and delete its branch. Delete only after the owner says so.
@@ -61,7 +63,7 @@ The site is hidden from search engines (`X-Robots-Tag` in `site/_headers`, `Disa
 
 ## Intro-session form
 
-The homepage form (`[data-intro-form]`) posts to its `action` URL if one is set (Formspree-style: JSON accept header, `_gotcha` honeypot). Otherwise it opens a `mailto:` to Josh@TiebreakerPsych.com. No backend is configured yet.
+The homepage form (`[data-intro-form]`) posts to Web3Forms (`https://api.web3forms.com/submit`), which emails each request to Josh@TiebreakerPsych.com. The hidden `access_key` field is the owner's Web3Forms key (public by design, not a secret); `botcheck` is the honeypot. If the form's `action` is removed, it falls back to opening a `mailto:` to Josh@TiebreakerPsych.com.
 
 ## Checking a change locally
 

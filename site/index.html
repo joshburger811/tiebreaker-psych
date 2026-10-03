@@ -36,7 +36,10 @@
       <a class="nav-cta-mobile" href="/#get-started">Book a free session</a>
     </nav>
     <div class="header-actions">
-      <a class="header-phone" href="tel:+12038140342"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.8l1.4 4.2-2 1.4a11 11 0 0 0 6.1 6.1l1.4-2 4.2 1.4v2.8a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>(203) 814-0342</span></a>
+      <div class="header-contact">
+        <a class="header-phone" href="tel:+12038140342"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.8l1.4 4.2-2 1.4a11 11 0 0 0 6.1 6.1l1.4-2 4.2 1.4v2.8a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>(203) 814-0342</span></a>
+        <a class="header-phone header-email" href="mailto:Josh@TiebreakerPsych.com"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Josh@TiebreakerPsych.com</span></a>
+      </div>
       <a class="btn btn-primary btn-sm" href="/#get-started">Book a free session</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-label="Open menu" data-menu-toggle>
         <span></span><span></span>
@@ -216,7 +219,10 @@
     </div>
     <div class="form-card">
       
-<form class="intro-form" data-intro-form  novalidate>
+<form class="intro-form" data-intro-form action="https://api.web3forms.com/submit" method="POST" novalidate>
+  <input type="hidden" name="access_key" value="a82c8269-57c3-4bc4-a717-26ce466a59ac">
+  <input type="hidden" name="subject" value="New free intro session request">
+  <input type="hidden" name="from_name" value="Tiebreaker Psych website">
   <div class="field-row">
     <label class="field"><span>Full name</span><input type="text" name="full-name" autocomplete="name" required></label>
     <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
@@ -226,7 +232,7 @@
     <label class="field"><span>What sport do you play?</span><input type="text" name="sport" required></label>
   </div>
   <label class="field"><span>Why are you interested in working with a sport psychology coach? <em>(Please be detailed.)</em></span><textarea name="message" rows="5" required></textarea></label>
-  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+  <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
   <button class="btn btn-primary btn-block" type="submit">Request my free session <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <p class="form-note">Sessions are available for athletes of all ages, sports, and levels. If an athlete is under 18, their parent should inquire on their behalf.</p>
   <p class="form-status" role="status" aria-live="polite" data-form-status></p>
