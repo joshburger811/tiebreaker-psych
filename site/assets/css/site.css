@@ -233,7 +233,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .play svg { width: 28px; height: 28px; margin-left: 4px; }
 .yt:hover .play { transform: scale(1.08); }
 .media-meta { padding: 1.4rem 1.5rem 1.6rem; }
-.media-meta h2 { font-size: 1.22rem; margin-bottom: .35rem; letter-spacing: -.01em; }
+.media-meta h2, .media-meta h3 { font-size: 1.22rem; margin-bottom: .35rem; letter-spacing: -.01em; }
 .media-meta p { color: var(--muted); font-size: .95rem; margin-bottom: .6rem; }
 .media-tags { display: flex; align-items: center; gap: .75rem; font-size: .82rem !important; margin-bottom: .75rem !important; }
 .tag { font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--brand); background: var(--brand-soft); padding: .3rem .6rem; border-radius: 6px; }
