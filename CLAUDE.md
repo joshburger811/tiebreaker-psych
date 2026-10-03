@@ -61,7 +61,7 @@ The site is hidden from search engines (`X-Robots-Tag` in `site/_headers`, `Disa
 
 ## Intro-session form
 
-The homepage form (`[data-intro-form]`) posts to its `action` URL if one is set (Formspree-style: JSON accept header, `_gotcha` honeypot). Otherwise it opens a `mailto:` to Josh@TiebreakerPsych.com. No backend is configured yet.
+The homepage form (`[data-intro-form]`) posts to Web3Forms (`https://api.web3forms.com/submit`), which emails each request to Josh@TiebreakerPsych.com. The hidden `access_key` field is the owner's Web3Forms key (public by design, not a secret); `botcheck` is the honeypot. If the form's `action` is removed, it falls back to opening a `mailto:` to Josh@TiebreakerPsych.com.
 
 ## Checking a change locally
 

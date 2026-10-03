@@ -219,7 +219,10 @@
     </div>
     <div class="form-card">
       
-<form class="intro-form" data-intro-form  novalidate>
+<form class="intro-form" data-intro-form action="https://api.web3forms.com/submit" method="POST" novalidate>
+  <input type="hidden" name="access_key" value="a82c8269-57c3-4bc4-a717-26ce466a59ac">
+  <input type="hidden" name="subject" value="New free intro session request">
+  <input type="hidden" name="from_name" value="Tiebreaker Psych website">
   <div class="field-row">
     <label class="field"><span>Full name</span><input type="text" name="full-name" autocomplete="name" required></label>
     <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
@@ -229,7 +232,7 @@
     <label class="field"><span>What sport do you play?</span><input type="text" name="sport" required></label>
   </div>
   <label class="field"><span>Why are you interested in working with a sport psychology coach? <em>(Please be detailed.)</em></span><textarea name="message" rows="5" required></textarea></label>
-  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+  <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
   <button class="btn btn-primary btn-block" type="submit">Request my free session <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <p class="form-note">Sessions are available for athletes of all ages, sports, and levels. If an athlete is under 18, their parent should inquire on their behalf.</p>
   <p class="form-status" role="status" aria-live="polite" data-form-status></p>
