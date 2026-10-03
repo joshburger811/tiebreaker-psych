@@ -321,6 +321,13 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .footer-base { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; border-top: 1px solid rgba(255, 255, 255, .08); padding-block: 1.5rem; font-size: .85rem; }
 .footer-base p { margin: 0; }
 
+/* Call / text menu for phone links */
+.phone-menu { position: fixed; z-index: 60; display: flex; flex-direction: column; min-width: 150px; padding: .35rem; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+.phone-menu[hidden] { display: none; }
+.phone-menu a { display: flex; align-items: center; gap: .6em; padding: .7rem .9rem; border-radius: 10px; color: var(--ink); font-weight: 600; font-size: .95rem; line-height: 1.2; text-decoration: none; }
+.phone-menu a:hover, .phone-menu a:focus-visible { background: var(--tint); outline: none; }
+.phone-menu svg { width: 18px; height: 18px; flex: none; color: var(--brand); }
+
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: none; }

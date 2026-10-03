@@ -7,6 +7,7 @@ Static marketing site for Tiebreaker Psych, Josh Burger's sport psychology coach
 These are the owner's standing rules. Follow them in every session.
 
 - **Change request → staging link.** When the owner asks for a change, make it on its own staging branch (see "Staging links"), wait for the Cloudflare preview build to pass, then reply with the staging link. Don't stop at "here's the plan" or "the change is ready".
+- **Always include the staging link.** Any message to the owner about a change that's on staging (ready to review, adjusted, waiting to publish, a question about it) includes its staging link, every time.
 - **Link to the page that changed.** If the change is on a specific page, send the link to that page, not the homepage (for example `…workers.dev/services`). If several pages changed, list a link for each.
 - **Only what was asked.** Don't add improvements, fixes or rewording the owner didn't request. If you notice something else worth changing, mention it in one line at the end of your reply and ask; don't do it.
 - **Typos.** If the owner's request contains what looks like a typo (especially in text going on the site), ask whether to fix it before using it. Don't silently correct it or copy it as-is.
