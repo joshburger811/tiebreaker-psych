@@ -1,0 +1,12 @@
+// Cloudflare Workers config: serves the static files in ./site.
+// _headers and _redirects inside ./site are applied automatically.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "tiebreaker-psych",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./site",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}
