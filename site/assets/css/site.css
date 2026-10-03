@@ -258,7 +258,9 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 .logo-tile { display: grid; place-items: center; aspect-ratio: 16 / 7; background: radial-gradient(circle at 85% 20%, rgba(196, 22, 28, .5), transparent 55%), var(--ink); color: #fff; }
 .logo-tile span { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: -.02em; }
-.logo-forbes span { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 2rem; letter-spacing: -.01em; }
+.logo-forbes { justify-items: start; padding-left: 1.25rem; background: linear-gradient(90deg, var(--ink) 0%, rgba(14, 17, 22, .92) 38%, rgba(14, 17, 22, .15) 80%), url(/assets/img/tennis.jpg) 85% 30% / cover; }
+.logo-forbes-2 { background: linear-gradient(90deg, var(--ink) 0%, rgba(14, 17, 22, .92) 38%, rgba(14, 17, 22, .15) 80%), url(/assets/img/tennis.jpg) 35% 25% / cover; }
+.logo-forbes span { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 800; font-size: 2.1rem; letter-spacing: -.02em; }
 .feature-body { display: flex; flex-direction: column; flex: 1; padding: 1.25rem 1.25rem 1.4rem; }
 .feature-body h3 { font-size: 1.05rem; margin-bottom: .6rem; }
 .feature-body p { color: var(--muted); font-size: .9rem; line-height: 1.55; margin-bottom: .8rem; }
@@ -294,7 +296,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .press-band p { margin-bottom: .75rem; }
 .press-band .byline { color: #c9ced6 !important; }
 .press-band .byline span { color: rgba(255, 255, 255, .3); }
-.press-band-logo { font: 700 1.6rem Georgia, 'Times New Roman', serif; color: #fff; margin-bottom: .5rem !important; }
+.press-band-logo { font: 800 1.6rem 'Playfair Display', Georgia, 'Times New Roman', serif; color: #fff; margin-bottom: .5rem !important; }
 .press-band .text-link { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; }
 .talk-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
 .talk-list li { display: grid; align-content: start; gap: .35rem; padding: 0 1.5rem; border-left: 1px solid var(--line); font-size: .88rem; color: var(--muted); line-height: 1.5; }
