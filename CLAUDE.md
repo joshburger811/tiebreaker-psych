@@ -4,10 +4,10 @@ Static marketing site for Tiebreaker Psych, Josh Burger's sport psychology coach
 
 ## Workflow
 
-- `main` is production. Cloudflare deploys it automatically. Never push to `main` directly.
-- Make every change on a branch and open a pull request. Cloudflare posts a preview URL for each pull request; that's what the owner reviews.
+- `main` is production. Cloudflare deploys it automatically.
+- Make every change on a branch and open a pull request. Cloudflare builds a preview URL for each branch push; that's what the owner reviews.
 - Write pull request descriptions in plain English: what changed, which pages, and what to look at on the preview.
-- Merge only after the owner approves.
+- Branch protection is intentionally off. Before anything reaches `main` (merging or pushing), ask the owner in chat and wait for an explicit yes.
 
 ## Layout
 
