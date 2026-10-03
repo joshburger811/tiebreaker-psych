@@ -263,14 +263,16 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .feature-body h3 { font-size: 1.05rem; margin-bottom: .6rem; }
 .feature-body p { color: var(--muted); font-size: .9rem; line-height: 1.55; margin-bottom: .8rem; }
 .feature-body .text-link { margin-top: auto; font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; }
-.tiq { display: grid; grid-template-columns: 1.4fr 1fr auto; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
+.tiq { display: grid; grid-template-columns: 1.15fr 1.25fr auto; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
 .tiq-copy p:not(.eyebrow) { color: var(--muted); }
 .tiq-copy h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); }
 .tiq-stats { border-left: 1px solid var(--line); padding-left: clamp(1.25rem, 3vw, 2.5rem); }
 .tiq-num { font-family: var(--display); font-weight: 800; font-size: 2.6rem; line-height: 1; color: var(--ink); margin-bottom: 1rem; }
 .tiq-num span { display: block; font-family: var(--font); font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brand); margin-top: .35rem; }
 .tiq-label { font-size: .9rem; color: var(--muted); margin-bottom: .5rem; }
-.tiq-topics { display: grid; grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 2rem; margin: 0; padding-left: 1.1em; font-size: .88rem; color: var(--text); line-height: 1.9; }
+.tiq-topics { display: flex; gap: 1.75rem; }
+.tiq-topics ul { flex: 0 1 auto; margin: 0; padding-left: 1.1em; font-size: .88rem; color: var(--text); line-height: 1.4; }
+.tiq-topics li + li { margin-top: .5rem; }
 .tiq-cover { display: block; width: 200px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); }
 .tiq-cover img { width: 100%; }
 .episode-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
