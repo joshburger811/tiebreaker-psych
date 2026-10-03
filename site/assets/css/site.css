@@ -258,8 +258,8 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 .logo-tile { display: grid; place-items: center; aspect-ratio: 16 / 7; background: radial-gradient(circle at 85% 20%, rgba(196, 22, 28, .5), transparent 55%), var(--ink); color: #fff; }
 .logo-tile span { font-family: var(--display); font-weight: 800; font-size: 1.5rem; letter-spacing: -.02em; }
-.logo-forbes { justify-items: start; padding-left: 1.25rem; background: linear-gradient(90deg, #13233a 0%, rgba(19, 35, 58, .9) 22%, rgba(19, 35, 58, .5) 42%, rgba(19, 35, 58, 0) 60%), url(/assets/img/forbes-bg-1.jpg) right center / auto 100% no-repeat, #13233a; }
-.logo-forbes-2 { background: linear-gradient(90deg, #13233a 0%, rgba(19, 35, 58, .9) 22%, rgba(19, 35, 58, .5) 42%, rgba(19, 35, 58, 0) 60%), url(/assets/img/forbes-bg-2.jpg) right center / auto 100% no-repeat, #13233a; }
+.logo-forbes { justify-items: start; padding-left: 1.25rem; background: linear-gradient(90deg, var(--ink) 0%, rgba(14, 17, 22, .92) 38%, rgba(14, 17, 22, .15) 80%), url(/assets/img/tennis.jpg) 85% 30% / cover; }
+.logo-forbes-2 { background: linear-gradient(90deg, var(--ink) 0%, rgba(14, 17, 22, .92) 38%, rgba(14, 17, 22, .15) 80%), url(/assets/img/tennis.jpg) 35% 25% / cover; }
 .logo-forbes span { font-family: 'Playfair Display', Georgia, 'Times New Roman', serif; font-weight: 800; font-size: 2.1rem; letter-spacing: -.02em; }
 .feature-body { display: flex; flex-direction: column; flex: 1; padding: 1.25rem 1.25rem 1.4rem; }
 .feature-body h3 { font-size: 1.05rem; margin-bottom: .6rem; }
