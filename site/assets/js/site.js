@@ -17,6 +17,57 @@
   document.querySelectorAll('[data-nav] a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
   document.addEventListener('keydown', (e) => e.key === 'Escape' && setMenu(false));
 
+  // Phone links: tapping opens a small Call / Text menu instead of dialling straight away.
+  const telLinks = document.querySelectorAll('a[href^="tel:"]');
+  if (telLinks.length) {
+    const phoneIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h2.8l1.4 4.2-2 1.4a11 11 0 0 0 6.1 6.1l1.4-2 4.2 1.4v2.8a2 2 0 0 1-2.1 2A16.5 16.5 0 0 1 4.6 5.6a2 2 0 0 1 2-2.1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+    const textIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+    const menu = document.createElement('div');
+    menu.className = 'phone-menu';
+    menu.setAttribute('role', 'menu');
+    menu.hidden = true;
+    document.body.append(menu);
+    let opener = null;
+
+    const closeMenu = (refocus) => {
+      if (!opener) return;
+      menu.hidden = true;
+      opener.setAttribute('aria-expanded', 'false');
+      if (refocus) opener.focus();
+      opener = null;
+    };
+    const openMenu = (link, viaKeyboard) => {
+      const num = link.getAttribute('href').slice(4);
+      menu.innerHTML = `<a role="menuitem" href="tel:${num}">${phoneIcon}Call</a><a role="menuitem" href="sms:${num}">${textIcon}Text</a>`;
+      menu.hidden = false;
+      const r = link.getBoundingClientRect();
+      const left = Math.max(12, Math.min(r.left + r.width / 2 - menu.offsetWidth / 2, window.innerWidth - menu.offsetWidth - 12));
+      let top = r.bottom + 8;
+      if (top + menu.offsetHeight > window.innerHeight - 12) top = r.top - menu.offsetHeight - 8;
+      menu.style.left = `${left}px`;
+      menu.style.top = `${top}px`;
+      opener = link;
+      link.setAttribute('aria-expanded', 'true');
+      if (viaKeyboard) menu.querySelector('a').focus();
+    };
+
+    telLinks.forEach((link) => {
+      link.setAttribute('aria-haspopup', 'menu');
+      link.setAttribute('aria-expanded', 'false');
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const wasOpen = opener === link;
+        closeMenu();
+        if (!wasOpen) openMenu(link, e.detail === 0);
+      });
+    });
+    menu.addEventListener('click', () => closeMenu());
+    document.addEventListener('click', (e) => { if (opener && !menu.contains(e.target) && !opener.contains(e.target)) closeMenu(); });
+    document.addEventListener('keydown', (e) => e.key === 'Escape' && closeMenu(true));
+    window.addEventListener('scroll', () => closeMenu(), { passive: true });
+    window.addEventListener('resize', () => closeMenu());
+  }
+
   // Gentle reveal-on-scroll for major blocks.
   if ('IntersectionObserver' in window) {
     const targets = document.querySelectorAll('.split, .benefit, .steps li, .t-card, .service-card, .media-item, .cta-band, .form-card');
