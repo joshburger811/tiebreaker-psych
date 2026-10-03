@@ -69,13 +69,14 @@
       });
       status.className = 'form-status';
       if (!ok) { status.textContent = 'Please fill in the highlighted fields.'; status.classList.add('err'); return; }
-      if (form._gotcha && form._gotcha.value) return;
+      if (form.botcheck && form.botcheck.checked) return;
 
       const data = new FormData(form);
       if (form.action && form.getAttribute('action')) {
         try {
           const r = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
-          if (!r.ok) throw new Error();
+          const res = await r.json().catch(() => ({}));
+          if (!r.ok || res.success === false) throw new Error();
           form.reset();
           status.textContent = 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
