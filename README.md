@@ -10,9 +10,9 @@ The website for [tiebreakerpsych.com](https://www.tiebreakerpsych.com).
 2. **Claude makes the change on its own branch** and opens a pull request. The live site doesn't change.
 3. **Cloudflare builds a preview link** for that pull request in about a minute. This is the staging site.
 4. **Review the preview** on your phone or computer. Tell Claude what to adjust, and the same link updates.
-5. **Approve it.** Tell Claude "approved", or click the green **Merge** button on the pull request. The live site updates within a minute or two.
+5. **Approve it.** Claude always asks before publishing. Say yes (or click the green **Merge** button on the pull request yourself), and the live site updates within a minute or two.
 
-Anything on the `main` branch is live, so nothing reaches `main` without approval. Every past version is saved. To undo a release, open Cloudflare → Workers & Pages → tiebreaker-psych → Deployments and roll back to an earlier one.
+Anything on the `main` branch is live, so nothing reaches `main` without your OK. Every past version is saved. To undo a release, open Cloudflare → Workers & Pages → tiebreaker-psych → Deployments and roll back to an earlier one.
 
 ## What's where
 
