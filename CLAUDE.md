@@ -6,7 +6,7 @@ Static marketing site for Tiebreaker Psych, Josh Burger's sport psychology coach
 
 These are the owner's standing rules. Follow them in every session.
 
-- **Change request → staging link.** When the owner asks for a change, make it, push it to a branch, wait for the Cloudflare preview build to pass, then reply with the staging link. Don't stop at "here's the plan" or "the change is ready".
+- **Change request → staging link.** When the owner asks for a change, make it on its own staging branch (see "Staging links"), wait for the Cloudflare preview build to pass, then reply with the staging link. Don't stop at "here's the plan" or "the change is ready".
 - **Link to the page that changed.** If the change is on a specific page, send the link to that page, not the homepage (for example `…workers.dev/services`). If several pages changed, list a link for each.
 - **Only what was asked.** Don't add improvements, fixes or rewording the owner didn't request. If you notice something else worth changing, mention it in one line at the end of your reply and ask; don't do it.
 - **Typos.** If the owner's request contains what looks like a typo (especially in text going on the site), ask whether to fix it before using it. Don't silently correct it or copy it as-is.
@@ -20,22 +20,29 @@ These are the owner's standing rules. Follow them in every session.
 
 ### Staging links
 
-Staging is always the `staging` branch, at a fixed address the owner can bookmark:
-`https://staging-tiebreaker-psych.burger-josh.workers.dev` (add the page path, e.g. `/about`).
+Every change gets its own staging branch and link, so several conversations can run at the same time without stepping on each other.
 
-- For each change request, start from the latest `main`, make the change on your working branch, then push it to `staging` as well (`git push origin HEAD:staging --force-with-lease`). Open the pull request from `staging` into `main`.
-- `staging` holds one proposed change set at a time. If the owner asks for something new while an earlier change is still waiting to be published, ask whether to add it to the current batch or wait until the earlier one is live.
-- After a publish, staging can be reset to `main` at the next change request.
-- Check that the `Workers Builds: tiebreaker-psych` check passed for the `staging` push before sharing a link.
+- **Branch name:** `staging-<short-topic>`, lowercase with hyphens, at most 30 characters, e.g. `staging-about-photo` or `staging-fees-update`. Before creating it, check it doesn't already exist on GitHub. If it does, pick another name.
+- **Staging link:** `https://<branch>-tiebreaker-psych.burger-josh.workers.dev`, plus the page path. For example `staging-about-photo` → `https://staging-about-photo-tiebreaker-psych.burger-josh.workers.dev/about`. The `cloudflare-workers-and-pages` bot also posts it on the pull request.
+- Check that the `Workers Builds: tiebreaker-psych` check passed for your latest push before sharing a link.
+- One staging branch per conversation or topic. Never push to another conversation's staging branch, and never reuse a branch whose pull request has been merged or closed.
+- The old shared `staging` branch is retired. Don't use it.
 
 Live site (until the domain is switched): `https://tiebreaker-psych.burger-josh.workers.dev`.
 
 ## Workflow
 
 - `main` is production. Cloudflare deploys it automatically.
-- Make every change on a branch and open a pull request. Cloudflare builds a preview URL for each branch push; that's what the owner reviews.
+- **Never work on `main` directly.** Never commit to `main`, push to `main`, or check it out to make changes. The only way anything reaches `main` is merging a pull request after the owner confirms the staging version (see "Staging first, always").
+- For each change request:
+  1. `git fetch origin main` and create your staging branch from the latest `origin/main`.
+  2. Make the change, check it locally (desktop and phone width), then push the branch.
+  3. Open a pull request from your staging branch into `main`, and send the owner the staging link once the build passes.
+  4. If the owner asks for adjustments, push more commits to the same branch. The link stays the same.
+- **Before publishing**, bring in anything another conversation published in the meantime: merge the latest `origin/main` into your branch (no rebase or force-push), resolve conflicts keeping both changes, and push. If that changed what the owner will see on the pages they reviewed, send the staging link again and get a fresh confirmation before merging.
+- Publish one pull request at a time. After merging, delete the staging branch.
 - Write pull request descriptions in plain English: what changed, which pages, and what to look at on the preview.
-- Branch protection is intentionally off. Before anything reaches `main` (merging or pushing), ask the owner in chat and wait for an explicit yes.
+- Branch protection is intentionally off. The owner's rules above are the safeguard, so follow them strictly.
 
 ## Layout
 
