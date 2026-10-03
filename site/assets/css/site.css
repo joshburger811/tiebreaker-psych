@@ -19,7 +19,9 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; }
+/* Smooth scrolling only once the visitor interacts, so arriving on a #link jumps straight there. */
+html.smooth-scroll { scroll-behavior: smooth; }
 body { margin: 0; font-family: var(--font); font-size: 17px; line-height: 1.65; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 img, video, iframe { max-width: 100%; display: block; }
 img { height: auto; }
@@ -233,13 +235,25 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .play svg { width: 28px; height: 28px; margin-left: 4px; }
 .yt:hover .play { transform: scale(1.08); }
 .media-meta { padding: 1.4rem 1.5rem 1.6rem; }
-.media-meta h2 { font-size: 1.22rem; margin-bottom: .35rem; letter-spacing: -.01em; }
+.media-meta h2, .media-meta h3 { font-size: 1.22rem; margin-bottom: .35rem; letter-spacing: -.01em; }
 .media-meta p { color: var(--muted); font-size: .95rem; margin-bottom: .6rem; }
 .media-tags { display: flex; align-items: center; gap: .75rem; font-size: .82rem !important; margin-bottom: .75rem !important; }
 .tag { font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--brand); background: var(--brand-soft); padding: .3rem .6rem; border-radius: 6px; }
 .podcast-promo { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
 .podcast-promo p:not(.eyebrow) { color: var(--muted); margin: 0; }
 .spotify iframe { border-radius: 14px; box-shadow: var(--shadow); margin-bottom: 2rem; }
+.pod-heading { font-family: var(--font); font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--brand); margin-bottom: .9rem; }
+.recent-episodes { margin-bottom: 2rem; }
+.episode-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.episode-list li { display: flex; align-items: center; gap: 1.25rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.episode-list li > div { display: grid; gap: .15rem; min-width: 0; flex: 1; }
+.episode-list strong { color: var(--ink); font-size: 1rem; line-height: 1.35; }
+.episode-list span { color: var(--muted); font-size: .88rem; }
+.episode-list .text-link { flex: none; font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
+.listen-on { margin-top: 1.75rem; }
+.listen-links { display: flex; flex-wrap: wrap; gap: .6rem; }
+.listen-links .btn { padding: .8rem 1.15rem; font-size: .95rem; }
+.listen-links .btn:hover svg:last-child { transform: none; }
 
 /* Media & press page */
 .press-hero { position: relative; padding: clamp(3.5rem, 7vw, 6rem) 0; background: linear-gradient(90deg, rgba(14, 17, 22, .96) 0%, rgba(14, 17, 22, .88) 45%, rgba(14, 17, 22, .35) 100%), url(/assets/img/tennis.jpg) 70% 40% / cover; color: #c9ced6; }
@@ -334,7 +348,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html.smooth-scroll { scroll-behavior: auto; } }
 
 /* Responsive */
 /* Two-column sign-up section: keep the text and contact boxes compact so the photo fits beside the form. */
