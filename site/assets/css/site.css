@@ -271,15 +271,11 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .tiq-num span { display: block; font-family: var(--font); font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brand); margin-top: .35rem; }
 .tiq-label { font-size: .9rem; color: var(--muted); margin-bottom: .5rem; }
 .tiq-topics { display: grid; grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 2rem; margin: 0; padding-left: 1.1em; font-size: .88rem; color: var(--text); line-height: 1.9; }
-.tiq-cover { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 200px; aspect-ratio: 1; border-radius: var(--radius); background: radial-gradient(circle at 50% 30%, rgba(196, 22, 28, .45), transparent 60%), var(--ink); color: #fff; text-decoration: none; box-shadow: var(--shadow-lg); padding: 1rem; }
-.tiq-cover strong, .ep-tile strong { font-family: var(--display); font-weight: 800; font-size: 2rem; letter-spacing: -.02em; line-height: 1; text-transform: uppercase; }
-.tiq-cover em, .ep-tile em { font-style: normal; color: var(--brand); }
-.tiq-cover span { font-size: .8rem; letter-spacing: .3em; text-transform: uppercase; margin: .5rem 0 1rem; }
-.tiq-cover small { font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: #c9ced6; line-height: 1.5; }
+.tiq-cover { display: block; width: 200px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-lg); }
+.tiq-cover img { width: 100%; }
 .episode-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
 .episode-card { display: grid; grid-template-columns: 96px 1fr; gap: 1.1rem; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
-.ep-tile { display: grid; place-items: center; aspect-ratio: 1; border-radius: 10px; background: var(--ink); color: #fff; text-align: center; }
-.ep-tile strong { font-size: 1rem; }
+.ep-tile { width: 100%; aspect-ratio: 1; border-radius: 10px; object-fit: cover; }
 .episode-card h3 { font-size: 1rem; margin-bottom: .4rem; }
 .episode-card p { color: var(--muted); font-size: .88rem; line-height: 1.5; margin-bottom: .6rem; }
 .episode-card .text-link, .pod-list .text-link { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; }
