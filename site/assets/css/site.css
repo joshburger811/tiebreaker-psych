@@ -76,6 +76,8 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .header-actions { display: flex; align-items: center; gap: 1rem; }
 .header-phone { display: inline-flex; align-items: center; gap: .45em; color: var(--ink); text-decoration: none; font-weight: 600; font-size: .92rem; }
 .header-phone svg { color: var(--brand); }
+.header-contact { display: flex; flex-direction: column; gap: .15rem; }
+.header-contact .header-phone { font-size: .85rem; white-space: nowrap; }
 .menu-toggle { display: none; width: 44px; height: 44px; border: 1px solid var(--line); background: #fff; border-radius: 12px; cursor: pointer; position: relative; }
 .menu-toggle span { position: absolute; left: 12px; right: 12px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform .25s, top .25s; }
 .menu-toggle span:first-child { top: 17px; }
@@ -265,7 +267,10 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 
 /* Responsive */
 @media (max-width: 1080px) {
-  .header-phone { display: none; }
+  .header-contact { flex-direction: row; gap: .5rem; }
+  .header-contact .header-phone { justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line); background: #fff; border-radius: 12px; }
+  .header-contact .header-phone svg { width: 20px; height: 20px; }
+  .header-contact .header-phone span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 }
 @media (max-width: 920px) {
   .nav { position: fixed; inset: 76px 0 auto 0; flex-direction: column; gap: 0; padding: .75rem 24px 1.5rem; background: #fff; border-bottom: 1px solid var(--line); box-shadow: 0 20px 40px rgba(14, 17, 22, .08); transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; }
