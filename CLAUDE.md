@@ -12,8 +12,11 @@ These are the owner's standing rules. Follow them in every session.
 - **Only what was asked.** Don't add improvements, fixes or rewording the owner didn't request. If you notice something else worth changing, mention it in one line at the end of your reply and ask; don't do it.
 - **Typos.** If the owner's request contains what looks like a typo (especially in text going on the site), ask whether to fix it before using it. Don't silently correct it or copy it as-is.
 - **Plain language.** The owner isn't technical. Don't mention GitHub, Cloudflare, branches, pull requests, commits, builds or deploys unless the owner asks, or something needs them to take an action by hand. Then say exactly what to click.
-- **Staging first, always.** Never push or merge anything to production (`main`) unless that exact change is already on staging and the owner has confirmed it looks good. No exceptions: this includes small fixes, text-only edits, undos and changes that don't affect how the site looks.
+- **Clickable links.** Whenever you mention a website or page to the owner (staging and live links, and outside sites like web3forms.com), write it as a clickable markdown link, e.g. [web3forms.com](https://web3forms.com). Never leave it as plain text or in code formatting.
+- **Staging first, always.** Never push or merge anything to production (`main`) unless that exact change is already on staging and the owner has confirmed it looks good. This includes small fixes, text-only edits and undos.
+- **Changes that don't touch the website** (only these instructions, README/LAUNCH notes or config that doesn't change what visitors see): don't send a staging link, because it's confusing. Describe the change in plain words and ask "Ready to publish this?", then merge once the owner says yes. Anything under `site/`, or anything that could change how the site looks or behaves, still follows "Staging first, always".
 - **Going live.** Once the owner confirms the staging version looks good, ask "Ready to publish this to the live site?" (or treat their confirmation as the go-ahead if they've already said to publish), then merge. Confirm in one line once it's live, and always include the live link to each page that changed (for example `https://tiebreaker-psych.burger-josh.workers.dev/about`).
+- **Remind about unapproved changes.** At the start of every conversation, and at the end of any reply that finishes a change, check for open pull requests from `staging-*` branches, from any conversation. List each one in a line with its staging link, a few words on what it changes, and how long it's been waiting. If one has had no activity for 3 days or more, ask whether to publish it or delete it. To delete: close the pull request and delete its branch. Delete only after the owner says so.
 - **Check on a phone too.** Before sharing a staging link, check the changed pages at phone width (about 390px) as well as desktop, and fix any layout problems your change caused.
 - **"Undo" means roll back.** If the owner says "undo that" (or similar) about something already live, return the live site to how it was before their last approved change, by reverting that change. Like any other change, the undo goes to staging first, and the owner confirms it before it goes live.
 - **Photos.** The owner may send photos straight from a phone. Resize and compress them for the web (long edge about 2000px or less, a reasonable JPEG/WebP quality) and strip location metadata. Don't crop, filter or edit them unless asked.
@@ -42,7 +45,8 @@ Live site (until the domain is switched): `https://tiebreaker-psych.burger-josh.
   4. If the owner asks for adjustments, push more commits to the same branch. The link stays the same.
 - **Sync with `main` before every push to staging.** Before each push to your staging branch (the first push and every one after), `git fetch origin main` and merge the latest `origin/main` into the branch (no rebase or force-push), so the preview always shows the live site plus your change.
 - **Before publishing**, bring in anything another conversation published in the meantime: merge the latest `origin/main` into your branch (no rebase or force-push), resolve conflicts keeping both changes, and push. If that changed what the owner will see on the pages they reviewed, send the staging link again and get a fresh confirmation before merging.
-- Publish one pull request at a time. After merging, delete the staging branch.
+- Publish one pull request at a time.
+- **Branch cleanup.** The repo has GitHub's "Automatically delete head branches" setting turned on, so a staging branch is deleted when its pull request is merged. At the start of each conversation, also look for leftover branches whose work is already on `main` (merged pull request, or no commits that aren't on `main`), and delete them with `git push origin --delete <branch>`. Never delete `main`, a branch with an open pull request, or a branch with unmerged work from another conversation. If a delete is refused, list the leftover branches for the owner in plain language and ask them to delete them on GitHub's Branches page.
 - Write pull request descriptions in plain English: what changed, which pages, and what to look at on the preview.
 - Branch protection is intentionally off. The owner's rules above are the safeguard, so follow them strictly.
 
@@ -61,7 +65,7 @@ The site is hidden from search engines (`X-Robots-Tag` in `site/_headers`, `Disa
 
 ## Intro-session form
 
-The homepage form (`[data-intro-form]`) posts to its `action` URL if one is set (Formspree-style: JSON accept header, `_gotcha` honeypot). Otherwise it opens a `mailto:` to Josh@TiebreakerPsych.com. No backend is configured yet.
+The homepage form (`[data-intro-form]`) posts to Web3Forms (`https://api.web3forms.com/submit`), which emails each request to Josh@TiebreakerPsych.com. The hidden `access_key` field is the owner's Web3Forms key (public by design, not a secret); `botcheck` is the honeypot. If the form's `action` is removed, it falls back to opening a `mailto:` to Josh@TiebreakerPsych.com.
 
 ## Checking a change locally
 
