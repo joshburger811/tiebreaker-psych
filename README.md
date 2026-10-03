@@ -2,6 +2,8 @@
 
 The website for [tiebreakerpsych.com](https://www.tiebreakerpsych.com).
 
+**Status:** pre-launch. The site is hidden from search engines until the launch steps in [LAUNCH.md](LAUNCH.md) are done.
+
 ## How changes get made
 
 1. **Ask Claude for a change.** Use the Claude app, or open a GitHub issue and describe what you want.
