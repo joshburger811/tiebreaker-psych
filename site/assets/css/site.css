@@ -19,7 +19,9 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; }
+/* Smooth scrolling only once the visitor interacts, so arriving on a #link jumps straight there. */
+html.smooth-scroll { scroll-behavior: smooth; }
 body { margin: 0; font-family: var(--font); font-size: 17px; line-height: 1.65; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 img, video, iframe { max-width: 100%; display: block; }
 img { height: auto; }
@@ -48,7 +50,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: .55em; font: 600 1rem/1 var(--font); padding: 1rem 1.4rem; border-radius: 999px; border: 1.5px solid transparent; text-decoration: none; cursor: pointer; transition: background .2s, color .2s, border-color .2s, transform .2s, box-shadow .2s; white-space: nowrap; }
 .btn svg { transition: transform .2s; }
 .btn:hover svg:last-child { transform: translateX(3px); }
-.btn-primary { background: var(--brand); color: #fff; box-shadow: 0 6px 18px rgba(196, 22, 28, .25); }
+.btn-primary { background: var(--brand); color: #fff; box-shadow: 0 2px 6px rgba(196, 22, 28, .15); }
 .btn-primary:hover { background: var(--brand-dark); transform: translateY(-1px); }
 .btn-ghost { border-color: var(--line); color: var(--ink); background: #fff; }
 .btn-ghost:hover { border-color: var(--ink); }
@@ -233,7 +235,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .play svg { width: 28px; height: 28px; margin-left: 4px; }
 .yt:hover .play { transform: scale(1.08); }
 .media-meta { padding: 1.4rem 1.5rem 1.6rem; }
-.media-meta h2 { font-size: 1.22rem; margin-bottom: .35rem; letter-spacing: -.01em; }
+.media-meta h2, .media-meta h3 { font-size: 1.22rem; margin-bottom: .35rem; letter-spacing: -.01em; }
 .media-meta p { color: var(--muted); font-size: .95rem; margin-bottom: .6rem; }
 .media-tags { display: flex; align-items: center; gap: .75rem; font-size: .82rem !important; margin-bottom: .75rem !important; }
 .tag { font-weight: 600; text-transform: uppercase; letter-spacing: .1em; font-size: .72rem; color: var(--brand); background: var(--brand-soft); padding: .3rem .6rem; border-radius: 6px; }
@@ -278,6 +280,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .tiq { display: grid; grid-template-columns: 1.15fr 1.25fr auto; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
 .tiq-copy p:not(.eyebrow) { color: var(--muted); }
 .tiq-copy h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); }
+.tiq-listen { display: flex; flex-wrap: wrap; gap: .6rem; }
 .tiq-stats { border-left: 1px solid var(--line); padding-left: clamp(1.25rem, 3vw, 2.5rem); }
 .tiq-num { font-family: var(--display); font-weight: 800; font-size: 2.6rem; line-height: 1; color: var(--ink); margin-bottom: 1rem; }
 .tiq-num span { display: block; font-family: var(--font); font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brand); margin-top: .35rem; }
@@ -345,7 +348,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html.smooth-scroll { scroll-behavior: auto; } }
 
 /* Responsive */
 @media (max-width: 1080px) {
@@ -403,5 +406,6 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .press-hero { background: linear-gradient(rgba(14, 17, 22, .88), rgba(14, 17, 22, .88)), url(/assets/img/tennis.jpg) 70% 40% / cover; }
   .feature-grid, .tiq, .talk-list { grid-template-columns: 1fr; }
   .tiq-cover { width: 100%; max-width: 260px; }
+  .tiq-listen .btn { flex: 1 1 auto; padding-inline: .8rem; }
   .talk-list li { padding: 0; border: 0; }
 }
