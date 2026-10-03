@@ -15,7 +15,13 @@ These are the owner's standing rules. Follow them in every session.
 
 ### Staging links
 
-Each branch gets a stable preview URL: `https://<branch>-tiebreaker-psych.burger-josh.workers.dev`, where `<branch>` is the branch name with `/` replaced by `-`. For example, branch `claude/quirky-hypatia-avb9bv` is at `https://claude-quirky-hypatia-avb9bv-tiebreaker-psych.burger-josh.workers.dev`. Append the page path, e.g. `/about`. The `cloudflare-workers-and-pages` bot also posts the URL on the pull request. Check that the `Workers Builds: tiebreaker-psych` check passed before sharing a link.
+Staging is always the `staging` branch, at a fixed address the owner can bookmark:
+`https://staging-tiebreaker-psych.burger-josh.workers.dev` (add the page path, e.g. `/about`).
+
+- For each change request, start from the latest `main`, make the change on your working branch, then push it to `staging` as well (`git push origin HEAD:staging --force-with-lease`). Open the pull request from `staging` into `main`.
+- `staging` holds one proposed change set at a time. If the owner asks for something new while an earlier change is still waiting to be published, ask whether to add it to the current batch or wait until the earlier one is live.
+- After a publish, staging can be reset to `main` at the next change request.
+- Check that the `Workers Builds: tiebreaker-psych` check passed for the `staging` push before sharing a link.
 
 Live site (until the domain is switched): `https://tiebreaker-psych.burger-josh.workers.dev`.
 
