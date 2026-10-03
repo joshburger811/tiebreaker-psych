@@ -337,6 +337,16 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
 
 /* Responsive */
+/* Two-column sign-up section: keep the text and contact boxes compact so the photo fits beside the form. */
+@media (min-width: 921px) {
+  .form-intro .eyebrow { margin-bottom: .6rem; }
+  .form-intro h2 { font-size: clamp(1.6rem, 2.3vw, 2rem); margin-bottom: .5em; }
+  .form-intro { display: flex; flex-direction: column; align-self: stretch; }
+  .form-intro .contact-cards { margin-top: 0; gap: .5rem; }
+  .form-intro .contact-card { padding: .6rem 1rem; }
+  /* The photo fills the rest of the column, so it ends level with the bottom of the form. */
+  .form-photo { margin-top: 1.25rem; flex: 1 1 0; height: 0; min-height: 200px; aspect-ratio: auto; }
+}
 @media (max-width: 1080px) {
   .header-contact { flex-direction: row; gap: .5rem; }
   .header-contact .header-phone { justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line); background: #fff; border-radius: 12px; }
