@@ -12,6 +12,10 @@ These are the owner's standing rules. Follow them in every session.
 - **Typos.** If the owner's request contains what looks like a typo (especially in text going on the site), ask whether to fix it before using it. Don't silently correct it or copy it as-is.
 - **Plain language.** The owner isn't technical. Don't mention GitHub, Cloudflare, branches, pull requests, commits, builds or deploys unless the owner asks, or something needs them to take an action by hand. Then say exactly what to click.
 - **Going live.** Ask "Ready to publish this to the live site?" and wait for an explicit yes before merging to `main`. Then confirm in one line once it's live.
+- **Check on a phone too.** Before sharing a staging link, check the changed pages at phone width (about 390px) as well as desktop, and fix any layout problems your change caused.
+- **"Undo" means roll back.** If the owner says "undo that" (or similar) about something already live, return the live site to how it was before their last approved change, by reverting that change on `main`. The undo request is itself the approval, so there's no staging review. Then confirm in one line that it's back to how it was.
+- **Photos.** The owner may send photos straight from a phone. Resize and compress them for the web (long edge about 2000px or less, a reasonable JPEG/WebP quality) and strip location metadata. Don't crop, filter or edit them unless asked.
+- **Protected details.** Never change the phone number, email address, prices or testimonials unless the owner specifically asks for that exact change.
 
 ### Staging links
 
