@@ -68,9 +68,17 @@
     window.addEventListener('resize', () => closeMenu());
   }
 
+  // Smooth-scroll in-page links, but not the jump when arriving on a #link.
+  const smooth = () => document.documentElement.classList.add('smooth-scroll');
+  ['pointerdown', 'keydown'].forEach((t) => window.addEventListener(t, smooth, { once: true, capture: true }));
+
   // Gentle reveal-on-scroll for major blocks.
   if ('IntersectionObserver' in window) {
-    const targets = document.querySelectorAll('.split, .benefit, .steps li, .t-card, .service-card, .media-item, .cta-band, .form-card');
+    // Arriving on a #link: show that section (and everything above it) without the fade-in.
+    let arrivedAt = null;
+    try { arrivedAt = location.hash && document.querySelector(decodeURIComponent(location.hash)); } catch {}
+    const skip = (el) => arrivedAt && (arrivedAt.contains(el) || (el.compareDocumentPosition(arrivedAt) & Node.DOCUMENT_POSITION_FOLLOWING));
+    const targets = [...document.querySelectorAll('.split, .benefit, .steps li, .t-card, .service-card, .media-item, .cta-band, .form-card')].filter((t) => !skip(t));
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }

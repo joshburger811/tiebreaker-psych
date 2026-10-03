@@ -19,7 +19,9 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; }
+/* Smooth scrolling only once the visitor interacts, so arriving on a #link jumps straight there. */
+html.smooth-scroll { scroll-behavior: smooth; }
 body { margin: 0; font-family: var(--font); font-size: 17px; line-height: 1.65; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 img, video, iframe { max-width: 100%; display: block; }
 img { height: auto; }
@@ -334,7 +336,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 /* Reveal on scroll */
 .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
 .reveal.in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html.smooth-scroll { scroll-behavior: auto; } }
 
 /* Responsive */
 @media (max-width: 1080px) {
