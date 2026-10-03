@@ -266,6 +266,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .tiq { display: grid; grid-template-columns: 1.15fr 1.25fr auto; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; }
 .tiq-copy p:not(.eyebrow) { color: var(--muted); }
 .tiq-copy h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); }
+.tiq-listen { display: flex; flex-wrap: wrap; gap: .6rem; }
 .tiq-stats { border-left: 1px solid var(--line); padding-left: clamp(1.25rem, 3vw, 2.5rem); }
 .tiq-num { font-family: var(--display); font-weight: 800; font-size: 2.6rem; line-height: 1; color: var(--ink); margin-bottom: 1rem; }
 .tiq-num span { display: block; font-family: var(--font); font-size: .8rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--brand); margin-top: .35rem; }
@@ -391,5 +392,6 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .press-hero { background: linear-gradient(rgba(14, 17, 22, .88), rgba(14, 17, 22, .88)), url(/assets/img/tennis.jpg) 70% 40% / cover; }
   .feature-grid, .tiq, .talk-list { grid-template-columns: 1fr; }
   .tiq-cover { width: 100%; max-width: 260px; }
+  .tiq-listen .btn { flex: 1 1 auto; padding-inline: .8rem; }
   .talk-list li { padding: 0; border: 0; }
 }
