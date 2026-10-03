@@ -41,7 +41,8 @@ Live site (until the domain is switched): `https://tiebreaker-psych.burger-josh.
   3. Open a pull request from your staging branch into `main`, and send the owner the staging link once the build passes.
   4. If the owner asks for adjustments, push more commits to the same branch. The link stays the same.
 - **Before publishing**, bring in anything another conversation published in the meantime: merge the latest `origin/main` into your branch (no rebase or force-push), resolve conflicts keeping both changes, and push. If that changed what the owner will see on the pages they reviewed, send the staging link again and get a fresh confirmation before merging.
-- Publish one pull request at a time. After merging, delete the staging branch if you can. If the delete is refused, leave the branch: it's harmless once merged.
+- Publish one pull request at a time.
+- **Branch cleanup.** The repo has GitHub's "Automatically delete head branches" setting turned on, so a staging branch is deleted when its pull request is merged. At the start of each conversation, also look for leftover branches whose work is already on `main` (merged pull request, or no commits that aren't on `main`), and delete them with `git push origin --delete <branch>`. Never delete `main`, a branch with an open pull request, or a branch with unmerged work from another conversation. If a delete is refused, list the leftover branches for the owner in plain language and ask them to delete them on GitHub's Branches page.
 - Write pull request descriptions in plain English: what changed, which pages, and what to look at on the preview.
 - Branch protection is intentionally off. The owner's rules above are the safeguard, so follow them strictly.
 
