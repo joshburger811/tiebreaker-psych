@@ -99,6 +99,39 @@
     });
   });
 
+  // Podcast page: list recent episodes from the show's public feed (the Spotify player only shows the latest).
+  const episodes = document.querySelector('[data-episodes]');
+  if (episodes) {
+    const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    const duration = (d) => {
+      const secs = d.split(':').reduce((t, n) => t * 60 + Number(n), 0);
+      const h = Math.floor(secs / 3600);
+      const m = Math.round((secs % 3600) / 60);
+      return h ? `${h} hr ${m} min` : `${m} min`;
+    };
+    fetch('https://anchor.fm/s/2c0d9298/podcast/rss')
+      .then((r) => (r.ok ? r.text() : Promise.reject()))
+      .then((xml) => {
+        const items = [...new DOMParser().parseFromString(xml, 'text/xml').querySelectorAll('item')].slice(1, 9);
+        const list = episodes.querySelector('[data-episode-list]');
+        items.forEach((item) => {
+          const get = (tag) => item.getElementsByTagName(tag)[0]?.textContent.trim() || '';
+          const link = get('link');
+          if (!link.startsWith('https://')) return;
+          const date = new Date(get('pubDate')).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          const len = get('itunes:duration');
+          const li = document.createElement('li');
+          li.innerHTML = `<div><strong></strong><span></span></div><a class="text-link" target="_blank" rel="noopener">Listen ${arrow}</a>`;
+          li.querySelector('strong').textContent = get('title');
+          li.querySelector('span').textContent = /^[\d:]+$/.test(len) ? `${date} · ${duration(len)}` : date;
+          li.querySelector('a').href = link;
+          list.append(li);
+        });
+        if (list.children.length) episodes.hidden = false;
+      })
+      .catch(() => {});
+  }
+
   // Media filters.
   const grid = document.querySelector('[data-media-grid]');
   if (grid) {
