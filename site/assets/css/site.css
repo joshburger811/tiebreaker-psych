@@ -409,3 +409,16 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .tiq-listen .btn { flex: 1 1 auto; padding-inline: .8rem; }
   .talk-list li { padding: 0; border: 0; }
 }
+
+/* Services page: dark hero band */
+.page-services .page-hero { position: relative; padding: clamp(3.5rem, 7vw, 6rem) 0; background: linear-gradient(90deg, rgba(14, 17, 22, .97) 0%, rgba(14, 17, 22, .9) 42%, rgba(14, 17, 22, .25) 100%), url(/assets/img/skater.jpg) 75% 35% / cover; color: #c9ced6; }
+.page-services .page-hero .container { max-width: var(--container); }
+.page-services .page-hero h1 { color: #fff; max-width: 13em; }
+.page-services .page-hero .lede { color: #c9ced6; max-width: 32em; margin-bottom: 0; }
+.page-services .page-hero + .section { background: var(--tint); padding-top: clamp(2.5rem, 5vw, 4rem); padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+.page-services .section-cta { background: var(--tint); padding-bottom: clamp(3rem, 6vw, 5rem); }
+.page-services .service-card { border-color: transparent; box-shadow: var(--shadow); }
+.page-services .chips li { background: var(--tint); }
+@media (max-width: 640px) {
+  .page-services .page-hero { background: linear-gradient(rgba(14, 17, 22, .86), rgba(14, 17, 22, .86)), url(/assets/img/skater.jpg) 60% 35% / cover; }
+}
