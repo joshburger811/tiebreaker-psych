@@ -160,6 +160,10 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .contact-card:hover { border-color: var(--ink); }
 .contact-card svg { width: 22px; height: 22px; color: var(--brand); }
 .contact-card small { display: block; font-weight: 500; color: var(--muted); font-size: .8rem; }
+.option-label, .form-intro .option-label { display: flex; align-items: center; gap: .6rem; margin: 1.75rem 0 .75rem; font-weight: 700; color: var(--ink); }
+.option-num { display: inline-grid; place-items: center; flex: none; width: 1.6rem; height: 1.6rem; border-radius: 50%; background: var(--brand); color: #fff; font-size: .85rem; }
+.form-card .option-label { margin-top: 0; margin-bottom: .35rem; }
+.form-card .option-note { color: var(--muted); margin: 0 0 1.25rem; }
 .form-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(1.5rem, 3vw, 2.5rem); box-shadow: var(--shadow-lg); position: sticky; top: 100px; }
 .intro-form { display: grid; gap: 1.1rem; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
@@ -356,6 +360,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .form-intro .eyebrow { margin-bottom: .6rem; }
   .form-intro h2 { font-size: clamp(1.6rem, 2.3vw, 2rem); margin-bottom: .5em; }
   .form-intro { display: flex; flex-direction: column; align-self: stretch; }
+  .form-intro .option-label { margin: .75rem 0 .5rem; }
   .form-intro .contact-cards { margin-top: 0; gap: .5rem; }
   .form-intro .contact-card { padding: .6rem 1rem; }
   /* The photo fills the rest of the column, so it ends level with the bottom of the form. */
