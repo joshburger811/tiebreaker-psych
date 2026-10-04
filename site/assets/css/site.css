@@ -424,9 +424,11 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .page-services .page-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(2rem, 4vw, 3.5rem); max-width: var(--container); margin: 0 auto; padding: clamp(2.5rem, 5vw, 4rem) 24px; background: none; }
 .page-services .page-hero .container { padding: 0; max-width: none; }
 .page-services .page-hero .lede { margin-bottom: 0; }
-.services-hero-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 62% 50%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+.services-hero-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 30%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
 .page-services .page-hero + .section { background: var(--ink); padding-block: clamp(3rem, 6vw, 5rem); }
 .page-services .service-card { border-color: transparent; }
+.page-services .focus-one-on-one { object-position: 50% 60%; }
+.page-services .focus-team { object-position: 50% 68%; }
 .page-services .section-cta { padding-top: clamp(3rem, 6vw, 5rem); background: var(--tint); }
 @media (max-width: 920px) {
   .page-services .page-hero { grid-template-columns: 1fr; }
