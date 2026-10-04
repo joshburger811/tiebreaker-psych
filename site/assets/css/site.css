@@ -384,7 +384,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .hero-copy { padding-top: 1rem; }
   .benefit-grid, .t-grid, .steps { grid-template-columns: 1fr 1fr; }
   .service-card, .service-card:nth-child(even) { grid-template-columns: 1fr; }
-  .service-card > img, .service-card:nth-child(even) > img { order: 0; min-height: 0; aspect-ratio: 16 / 9; }
+  .service-card > img, .service-card:nth-child(even) > img { order: 0; height: auto; min-height: 0; aspect-ratio: 16 / 9; }
   .form-card { position: static; }
   .form-photo { display: none; }
   .about-photo { max-width: 420px; order: -1; }
