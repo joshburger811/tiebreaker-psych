@@ -191,6 +191,8 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .creds dt { font-family: var(--display); font-weight: 700; color: var(--ink); }
 .creds dd { margin: .2rem 0 0; color: var(--muted); font-size: .92rem; line-height: 1.45; }
 .prose p { font-size: 1.12rem; line-height: 1.8; }
+.about-bio { padding: clamp(1.5rem, 3vw, 2.5rem) 0 clamp(3rem, 6vw, 4.5rem); }
+.about-bio .creds { margin-top: 2.5rem; }
 .prose .pull { font-family: var(--display); font-size: clamp(1.4rem, 2.5vw, 1.8rem); font-weight: 700; color: var(--ink); line-height: 1.3; letter-spacing: -.02em; border-left: 4px solid var(--brand); padding-left: 1.5rem; margin-top: 2.5rem; }
 
 /* Services */
