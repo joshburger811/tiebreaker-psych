@@ -432,6 +432,8 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .page-services .section-tight { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
 .page-services .service-grid { gap: 1.5rem; }
 .page-services .service-card { border-color: transparent; box-shadow: var(--shadow); }
+.page-services .focus-one-on-one { object-position: 50% 60%; }
+.page-services .focus-team { object-position: 50% 50%; }
 @media (max-width: 920px) {
   .page-services .page-hero .container { grid-template-columns: 1fr; gap: 1rem; }
 }
