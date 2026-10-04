@@ -409,3 +409,19 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .tiq-listen .btn { flex: 1 1 auto; padding-inline: .8rem; }
   .talk-list li { padding: 0; border: 0; }
 }
+
+/* Services page: warm tinted background, wider and tighter */
+.page-services { background: var(--tint); }
+.page-services .site-header { background: rgba(246, 244, 240, .88); }
+.page-services .nav a[aria-current='page'], .page-services .nav a:hover { background: #fff; }
+.page-services .page-hero { padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(1.5rem, 3vw, 2.25rem); background: radial-gradient(900px 420px at 95% -10%, var(--brand-soft), transparent 65%); }
+.page-services .page-hero .container { max-width: var(--container); display: grid; grid-template-columns: 1.6fr 1fr; gap: clamp(1.5rem, 4vw, 4rem); align-items: end; }
+.page-services .page-hero .eyebrow { grid-column: 1 / -1; margin-bottom: 0; }
+.page-services .page-hero h1 { margin: 0; }
+.page-services .page-hero .lede { margin: 0; border-left: 3px solid var(--brand); padding-left: 1.25rem; }
+.page-services .section-tight { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+.page-services .service-grid { gap: 1.5rem; }
+.page-services .service-card { border-color: transparent; box-shadow: var(--shadow); }
+@media (max-width: 920px) {
+  .page-services .page-hero .container { grid-template-columns: 1fr; gap: 1rem; }
+}
