@@ -143,6 +143,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .t-card blockquote { margin: 0; font-size: 1.08rem; line-height: 1.6; color: #e9ecf1; }
 .t-card figcaption { display: flex; align-items: center; gap: .85rem; }
 .t-card strong { display: block; color: #fff; font-weight: 600; }
+.t-card blockquote strong { display: inline; }
 .t-card small { display: block; color: #8f97a4; font-size: .85rem; line-height: 1.35; }
 .avatar { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: #fff; font: 700 .9rem var(--display); flex: none; }
 .t-masonry { columns: 2 340px; column-gap: 1.25rem; }
