@@ -22,6 +22,7 @@
 html { -webkit-text-size-adjust: 100%; }
 /* Smooth scrolling only once the visitor interacts, so arriving on a #link jumps straight there. */
 html.smooth-scroll { scroll-behavior: smooth; }
+#get-started { scroll-margin-top: 90px; }
 body { margin: 0; font-family: var(--font); font-size: 17px; line-height: 1.65; color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
 img, video, iframe { max-width: 100%; display: block; }
 img { height: auto; }
@@ -312,7 +313,6 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .pod-list strong { color: var(--ink); font-size: .95rem; line-height: 1.35; }
 .pod-list li > div > span { color: var(--muted); font-size: .88rem; line-height: 1.4; }
 .pod-tile { display: grid; place-items: center; flex: none; width: 56px; height: 56px; border-radius: 10px; background: var(--ink); color: #fff; font: 800 .9rem var(--display); letter-spacing: .02em; }
-.pod-list li:nth-child(4n+2) .pod-tile, .pod-list li:nth-child(4n+3) .pod-tile { background: var(--brand); }
 .press-band { background: var(--ink); color: #c9ced6; padding: clamp(2.5rem, 5vw, 3.5rem) 0; }
 .press-band-grid { display: grid; grid-template-columns: 1.2fr repeat(3, 1fr); gap: clamp(1.5rem, 4vw, 3rem); }
 .press-band-grid > * + * { border-left: 1px solid rgba(255, 255, 255, .14); padding-left: clamp(1.5rem, 3vw, 2.5rem); }
@@ -399,7 +399,8 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .service-card > img, .service-card:nth-child(even) > img { order: 0; height: auto; min-height: 0; aspect-ratio: 16 / 9; }
   .form-card { position: static; }
   .form-photo { display: none; }
-  .about-photo { max-width: 420px; order: -1; }
+  .about-photo { max-width: 200px; margin: 0 auto; order: -1; }
+  .about-photo img { aspect-ratio: 1; border-radius: 50%; object-position: center 18%; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-brand { grid-column: 1 / -1; }
   .feature-grid { grid-template-columns: 1fr 1fr; }
@@ -467,7 +468,6 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .t-photo-tennis { object-position: 30% 45%; }
 .page-testimonials .t-masonry .t-card { position: relative; padding-top: 2.6rem; border-color: transparent; box-shadow: var(--shadow); border-top: 4px solid var(--brand); }
 .page-testimonials .t-card::before { content: '\201C'; position: absolute; top: .35rem; left: 1.6rem; font: 800 3.6rem/1 var(--display); color: var(--brand); opacity: .9; }
-.page-testimonials .t-masonry .t-card:nth-child(4n+3) .avatar { background: var(--ink); }
 @media (max-width: 920px) {
   .t-hero { grid-template-columns: minmax(0, 1fr); }
   .t-photos { height: clamp(240px, 60vw, 380px); }
