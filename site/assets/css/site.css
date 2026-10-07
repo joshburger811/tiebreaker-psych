@@ -475,7 +475,12 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 }
 
 /* FAQ */
-.faq-wrap { max-width: 780px; }
+.faq-section { padding-top: clamp(1rem, 2vw, 1.5rem); }
+.page-hero:has(+ .faq-section) { padding-bottom: 1.25rem; }
+.page-hero + .faq-section { padding-top: .5rem; }
+.faq-layout { display: grid; grid-template-columns: 1.15fr .85fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+.faq-photo { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); position: sticky; top: 100px; }
+@media (max-width: 900px) { .faq-layout { grid-template-columns: 1fr; } .faq-photo { aspect-ratio: 16 / 9; position: static; } }
 .faq-item { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; margin-bottom: .75rem; }
 .faq-item summary { cursor: pointer; list-style: none; padding: 1.1rem 3rem 1.1rem 1.25rem; font-weight: 700; color: var(--ink); position: relative; }
 .faq-item summary::-webkit-details-marker { display: none; }
