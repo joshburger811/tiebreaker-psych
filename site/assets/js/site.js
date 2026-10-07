@@ -170,7 +170,7 @@
           const res = await r.json().catch(() => ({}));
           if (!r.ok || res.success === false) throw new Error();
           form.reset();
-          status.textContent = 'Thanks! Josh will be in touch soon to schedule your free session.';
+          status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
           status.textContent = 'Something went wrong. Please email Josh@TiebreakerPsych.com or call/text (203) 814-0342.';
