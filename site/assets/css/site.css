@@ -468,6 +468,8 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 }
 
 /* FAQ */
+.faq-wrap { max-width: 780px; }
+.faq-item { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; margin-bottom: .75rem; }
 .faq-section { padding-top: clamp(1rem, 2vw, 1.5rem); }
 .page-hero:has(+ .faq-section) { padding-bottom: 1.25rem; }
 .page-hero + .faq-section { padding-top: .5rem; }
