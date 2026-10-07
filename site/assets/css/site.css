@@ -473,3 +473,14 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .t-hero { grid-template-columns: minmax(0, 1fr); }
   .t-photos { height: clamp(240px, 60vw, 380px); }
 }
+
+/* FAQ */
+.faq-wrap { max-width: 780px; }
+.faq-item { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; margin-bottom: .75rem; }
+.faq-item summary { cursor: pointer; list-style: none; padding: 1.1rem 3rem 1.1rem 1.25rem; font-weight: 700; color: var(--ink); position: relative; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after { content: '+'; position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); font-size: 1.4rem; font-weight: 400; color: var(--brand); }
+.faq-item[open] summary::after { content: '\2212'; }
+.faq-item p { margin: 0; padding: 0 1.25rem 1.25rem; color: var(--muted); }
+.faq-cta { margin-top: 2.5rem; text-align: center; }
+.faq-cta p { color: var(--muted); }
