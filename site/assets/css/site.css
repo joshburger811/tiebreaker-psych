@@ -468,8 +468,11 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 }
 
 /* FAQ */
-.faq-wrap { max-width: 780px; }
+.faq-wrap { max-width: none; }
 .faq-item { border: 1px solid var(--line); border-radius: var(--radius); background: #fff; margin-bottom: .75rem; }
+.faq-section { padding-top: clamp(1rem, 2vw, 1.5rem); }
+.page-hero:has(+ .faq-section) { padding-bottom: 1.25rem; }
+.page-hero + .faq-section { padding-top: .5rem; }
 .faq-item summary { cursor: pointer; list-style: none; padding: 1.1rem 3rem 1.1rem 1.25rem; font-weight: 700; color: var(--ink); position: relative; }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary::after { content: '+'; position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); font-size: 1.4rem; font-weight: 400; color: var(--brand); }
