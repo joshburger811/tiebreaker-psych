@@ -204,7 +204,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .service-grid { display: grid; gap: 2rem; }
 .service-card { display: grid; grid-template-columns: 1fr 1.15fr; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: #fff; }
 .service-card > img { width: 100%; height: 100%; object-fit: cover; min-height: 320px; }
-.service-card:nth-child(even) { grid-template-columns: 1.15fr 1fr; }
+.service-card:nth-child(even) { grid-template-columns: 1fr .45fr; }
 .focus-tennis { object-position: 66% 35%; }
 .focus-athlete { object-position: 46% 30%; }
 .service-card:nth-child(even) > img { order: 2; }
@@ -212,7 +212,6 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .service-body { padding: clamp(1.75rem, 4vw, 3rem); }
 .service-body > p:not(.eyebrow) { color: var(--muted); }
 .service-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
-.service-actions .btn { padding: .7rem .7rem; font-size: .8rem; gap: .4em; }
 .chips { list-style: none; padding: 0; margin: 1.5rem 0; display: flex; flex-wrap: wrap; gap: .5rem; }
 .chips li { font-size: .85rem; font-weight: 500; padding: .4rem .85rem; border-radius: 999px; background: var(--tint); color: var(--ink); }
 .pricing-note { display: grid; gap: .2rem; padding: 1rem 1.25rem; background: var(--brand-soft); border-radius: 12px; margin-bottom: 1.75rem; font-size: .95rem; }
