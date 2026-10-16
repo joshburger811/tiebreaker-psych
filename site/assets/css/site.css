@@ -126,6 +126,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .split { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(2rem, 6vw, 5.5rem); align-items: center; }
 .split-media img { border-radius: var(--radius-lg); aspect-ratio: 1 / 1; object-position: 50% 50%; object-fit: cover; width: 100%; }
 .split-copy p { color: var(--muted); }
+.split-media-portrait img { aspect-ratio: 4 / 5; object-position: 50% 20%; max-width: 420px; }
 
 .benefit-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.25rem; }
 .benefit-grid .benefit { flex: 0 0 calc((100% - 2.5rem) / 3); }
@@ -385,6 +386,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .hero-media { order: -1; }
   .hero-media > img { aspect-ratio: 16 / 10; }
   .split-media img { aspect-ratio: 16 / 10; object-position: 50% 40%; }
+  .split-media-portrait img { aspect-ratio: 1; object-position: 50% 18%; max-width: 220px; border-radius: 50%; margin: 0 auto; }
   .hero-badge { left: 16px; bottom: -22px; }
   .hero-copy { padding-top: 1rem; }
   .t-grid, .steps { grid-template-columns: 1fr 1fr; }
