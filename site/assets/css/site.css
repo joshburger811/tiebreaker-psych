@@ -132,6 +132,7 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .benefit { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 1.75rem; transition: transform .25s, box-shadow .25s; }
 .benefit:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
 .benefit p { color: var(--muted); margin: 0; }
+.section-note { max-width: 680px; margin: 2rem 0 0; color: var(--muted); font-size: 1.05rem; }
 .benefit-icon { display: inline-grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); margin-bottom: 1.25rem; }
 .benefit-icon svg { width: 24px; height: 24px; }
 .benefit-cta { background: var(--ink); border-color: var(--ink); display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: 1.5rem; }
