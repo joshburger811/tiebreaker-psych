@@ -1,3 +1,24 @@
+// Google Ads lead tracking.
+// Fill in the conversion ID (AW-...) and label from the "Introductory Sign-Up Lead Form"
+// conversion in Google Ads. Tracking only runs on the live site, so test submissions on
+// preview links and localhost are never counted as leads.
+const ADS_CONVERSION = { id: '', label: '' };
+const ADS_LIVE_HOSTS = ['tiebreakerpsych.com', 'www.tiebreakerpsych.com', 'tiebreaker-psych.burger-josh.workers.dev'];
+const adsOn = Boolean(ADS_CONVERSION.id && ADS_CONVERSION.label && ADS_LIVE_HOSTS.includes(location.hostname));
+window.dataLayer = window.dataLayer || [];
+function gtag() { window.dataLayer.push(arguments); }
+if (adsOn) {
+  const tag = document.createElement('script');
+  tag.async = true;
+  tag.src = `https://www.googletagmanager.com/gtag/js?id=${ADS_CONVERSION.id}`;
+  document.head.appendChild(tag);
+  gtag('js', new Date());
+  gtag('config', ADS_CONVERSION.id);
+}
+const trackLead = () => {
+  if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}` });
+};
+
 (() => {
   const header = document.querySelector('[data-header]');
   const toggle = document.querySelector('[data-menu-toggle]');
@@ -170,6 +191,7 @@
           const res = await r.json().catch(() => ({}));
           if (!r.ok || res.success === false) throw new Error();
           form.reset();
+          trackLead();
           status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
