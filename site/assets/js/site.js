@@ -1,8 +1,8 @@
 // Google Ads lead tracking.
-// Fill in the conversion ID (AW-...) and label from the "Introductory Sign-Up Lead Form"
+// Conversion ID and label of the "Introductory Sign-Up Lead Form"
 // conversion in Google Ads. Tracking only runs on the live site, so test submissions on
 // preview links and localhost are never counted as leads.
-const ADS_CONVERSION = { id: '', label: '' };
+const ADS_CONVERSION = { id: 'AW-606276868', label: '4t1wCNKalNsBEISajKEC' };
 const ADS_LIVE_HOSTS = ['tiebreakerpsych.com', 'www.tiebreakerpsych.com', 'tiebreaker-psych.burger-josh.workers.dev'];
 const adsOn = Boolean(ADS_CONVERSION.id && ADS_CONVERSION.label && ADS_LIVE_HOSTS.includes(location.hostname));
 window.dataLayer = window.dataLayer || [];
