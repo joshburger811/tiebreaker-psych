@@ -505,3 +505,11 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
   .header-actions .btn { display: none; }
   .header-actions { margin-left: auto; }
 }
+
+/* Privacy policy */
+.legal { max-width: 46rem; }
+.legal h2 { font-size: 1.35rem; margin: 2.5rem 0 .75rem; }
+.legal p, .legal li { line-height: 1.75; }
+.legal ul { padding-left: 1.25rem; margin: 0 0 1.25rem; }
+.legal li { margin-bottom: .4rem; }
+.footer-base a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
