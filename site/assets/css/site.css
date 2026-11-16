@@ -507,6 +507,9 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 }
 
 /* Privacy policy */
+.legal-hero { padding: clamp(2rem, 4vw, 3rem) 0 1.5rem; }
+.legal-hero .lede { margin-bottom: 0; }
+.legal-section { padding-top: 0; }
 .legal { max-width: 46rem; }
 .legal h2 { font-size: 1.35rem; margin: 2.5rem 0 .75rem; }
 .legal p, .legal li { line-height: 1.75; }
