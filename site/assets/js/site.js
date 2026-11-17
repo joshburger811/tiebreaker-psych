@@ -18,6 +18,13 @@ if (adsOn) {
 const trackLead = () => {
   if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}` });
 };
+// Labels of the "Contact | Phone Call" and "Contact | Text Message" conversions in Google Ads,
+// counted when a visitor taps Call or Text in the phone-number menu.
+const ADS_CALL_LABEL = 'IcESCPuR-7IcEISajKEC';
+const ADS_TEXT_LABEL = 'gGafCJC3tLodEISajKEC';
+const trackContact = (label) => {
+  if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${label}` });
+};
 
 (() => {
   const header = document.querySelector('[data-header]');
@@ -82,7 +89,12 @@ const trackLead = () => {
         if (!wasOpen) openMenu(link, e.detail === 0);
       });
     });
-    menu.addEventListener('click', () => closeMenu());
+    menu.addEventListener('click', (e) => {
+      const href = e.target.closest('a')?.getAttribute('href') || '';
+      if (href.startsWith('tel:')) trackContact(ADS_CALL_LABEL);
+      else if (href.startsWith('sms:')) trackContact(ADS_TEXT_LABEL);
+      closeMenu();
+    });
     document.addEventListener('click', (e) => { if (opener && !menu.contains(e.target) && !opener.contains(e.target)) closeMenu(); });
     document.addEventListener('keydown', (e) => e.key === 'Escape' && closeMenu(true));
     window.addEventListener('scroll', () => closeMenu(), { passive: true });
