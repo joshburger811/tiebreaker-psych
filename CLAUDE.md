@@ -24,6 +24,7 @@ These are the owner's standing rules. Follow them in every session.
 - **Check on a phone too.** Before sharing a staging link, check the changed pages at phone width (about 390px) as well as desktop, and fix any layout problems your change caused.
 - **"Undo" means roll back.** If the owner says "undo that" (or similar) about something already live, return the live site to how it was before their last approved change, by reverting that change. Like any other change, the undo goes to staging first, and the owner confirms it before it goes live.
 - **Photos.** The owner may send photos straight from a phone. Resize and compress them for the web (long edge about 2000px or less, a reasonable JPEG/WebP quality) and strip location metadata. Don't crop, filter or edit them unless asked.
+- **Josh's title.** Josh is a Sport Psychology Coach. Never call him a psychologist, and never use the word "psychologist" anywhere on the site (pages, headings, page titles, descriptions, image text) or in ad copy. "Sport psychology" is fine.
 - **Protected details.** Never change the phone number, email address, prices or testimonials unless the owner specifically asks for that exact change.
 
 ### Staging links
