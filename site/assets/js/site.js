@@ -172,8 +172,12 @@ const trackLead = () => {
   const form = document.querySelector('[data-intro-form]');
   if (form) {
     const status = form.querySelector('[data-form-status]');
+    const submitBtn = form.querySelector('[type="submit"]');
+    let sending = false;
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      // Ignore repeat clicks/taps while a request is already being sent.
+      if (sending) return;
       let ok = true;
       form.querySelectorAll('[required]').forEach((el) => {
         const bad = !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value));
@@ -186,6 +190,10 @@ const trackLead = () => {
 
       const data = new FormData(form);
       if (form.action && form.getAttribute('action')) {
+        sending = true;
+        submitBtn.disabled = true;
+        submitBtn.setAttribute('aria-busy', 'true');
+        status.textContent = 'Sending…';
         try {
           const r = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
           const res = await r.json().catch(() => ({}));
@@ -197,6 +205,10 @@ const trackLead = () => {
         } catch {
           status.textContent = 'Something went wrong. Please email Josh@TiebreakerPsych.com or call/text (203) 814-0342.';
           status.classList.add('err');
+        } finally {
+          sending = false;
+          submitBtn.disabled = false;
+          submitBtn.removeAttribute('aria-busy');
         }
         return;
       }
