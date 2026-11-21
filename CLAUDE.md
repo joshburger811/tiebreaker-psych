@@ -62,7 +62,7 @@ Live site: `https://www.tiebreakerpsych.com` (launched November 21, 2026). Alway
 - `wrangler.jsonc` configures Cloudflare Workers static assets: `html_handling: drop-trailing-slash`, so `/about/` redirects to `/about`, and `not_found_handling: 404-page`.
 - `site/_redirects` maps old Wix URLs to new pages. Keep the redirect stub pages too (`site/home/`, `site/webinar/`, and others); they also carry `noindex`.
 - The header, nav and footer are repeated in every HTML file. When you change one, change all of them (`grep -l` across `site/`).
-- Shared CSS/JS: `site/assets/css/site.css` and `site/assets/js/site.js`.
+- Shared CSS/JS: `site/assets/css/site.<hash>.css` and `site/assets/js/site.<hash>.js`. Browsers cache them for a year, so **after any change to either file, run `npm run version-assets`**: it renames the file to its new content hash and updates every page that links to it. Never edit the hash by hand.
 - Keep files under Cloudflare's 25 MiB per-file limit. The two podcast MP3s in `site/assets/media/` are about 13 MB and 16 MB.
 
 ## Pre-launch state
