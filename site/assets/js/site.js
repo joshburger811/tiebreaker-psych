@@ -23,9 +23,18 @@ if (adsOn) {
 const gaEvent = (name, params = {}) => {
   if (adsOn) gtag('event', name, { ...params, send_to: GA4_ID });
 };
-const trackLead = () => {
-  if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}` });
+// Counts a lead, then runs `done` (if given) once Google Ads has the event, or after
+// 1.5 seconds at most, so leaving the page right after doesn't lose the conversion.
+// With ads = false (forms marked data-ads-conversion="off", such as Speak), only the GA4
+// event is sent, not the intro-session Ads conversion.
+const trackLead = (done, ads = true) => {
+  let called = false;
+  const finish = () => { if (!called && done) { called = true; done(); } };
   gaEvent('generate_lead');
+  if (adsOn && ads) {
+    gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
+    setTimeout(finish, 1500);
+  } else finish();
 };
 // Labels of the "Contact | Phone Call" and "Contact | Text Message" conversions in Google Ads,
 // counted when a visitor taps Call or Text in the phone-number menu.
@@ -238,7 +247,9 @@ document.addEventListener('click', (e) => {
           const res = await r.json().catch(() => ({}));
           if (!r.ok || res.success === false) throw new Error();
           form.reset();
-          trackLead();
+          // Forms with data-thanks go to that thank-you page once the request is sent.
+          const thanks = form.dataset.thanks;
+          trackLead(thanks ? () => { location.href = thanks; } : undefined, form.dataset.adsConversion !== 'off');
           status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
