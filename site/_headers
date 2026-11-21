@@ -11,3 +11,20 @@
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 /assets/media/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+# Styles and scripts have the content hash in their name (npm run version-assets),
+# so a changed file always gets a new address: browsers can keep them for a year.
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Site icons can't be renamed (browsers ask for these exact addresses): keep them for a week.
+/favicon.ico
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/favicon-32.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/icon-192.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
