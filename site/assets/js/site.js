@@ -2,10 +2,10 @@
 // GA4 measurement ID: the same property the Wix site reported to (via its Tag Manager container).
 const GA4_ID = 'G-YCRZMP46P6';
 // Conversion ID and label of the "Introductory Sign-Up Lead Form"
-// conversion in Google Ads. Tracking only runs on the live site, so test submissions on
-// preview links and localhost are never counted as leads.
+// conversion in Google Ads. Tracking (Ads and Analytics) only runs on tiebreakerpsych.com, so test
+// visits and submissions on preview links, the workers.dev address and localhost are never counted.
 const ADS_CONVERSION = { id: 'AW-606276868', label: '4t1wCNKalNsBEISajKEC' };
-const ADS_LIVE_HOSTS = ['tiebreakerpsych.com', 'www.tiebreakerpsych.com', 'tiebreaker-psych.burger-josh.workers.dev'];
+const ADS_LIVE_HOSTS = ['tiebreakerpsych.com', 'www.tiebreakerpsych.com'];
 const adsOn = Boolean(ADS_CONVERSION.id && ADS_CONVERSION.label && ADS_LIVE_HOSTS.includes(location.hostname));
 window.dataLayer = window.dataLayer || [];
 function gtag() { window.dataLayer.push(arguments); }

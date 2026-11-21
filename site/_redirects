@@ -10,3 +10,5 @@
 /event-details  /media  301
 /:page/  /:page  301
 /:section/:page/  /:section/:page  301
+/pages-sitemap.xml  /sitemap.xml  301
+/event-pages-sitemap.xml  /sitemap.xml  301
