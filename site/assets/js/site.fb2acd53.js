@@ -28,11 +28,23 @@ const gaEvent = (name, params = {}) => {
 // With ads = false (forms marked data-ads-conversion="off", such as Speak), only the GA4
 // event is sent, not the intro-session Ads conversion. `event` is the GA4 event name
 // (forms can set their own with data-ga-event, e.g. Speak's speaking_request).
-const trackLead = (done, ads = true, event = 'generate_lead') => {
+// Enhanced conversions: gives Google the visitor's email and phone with the lead, which the
+// Google tag hashes in the browser before sending, so Ads can match more leads to ad clicks.
+// Phone numbers are sent in +1XXXXXXXXXX form; anything else is left out.
+const leadUserData = (email, phone) => {
+  const data = {};
+  if (email && /^\S+@\S+\.\S+$/.test(email.trim())) data.email = email.trim().toLowerCase();
+  const digits = (phone || '').replace(/\D/g, '');
+  if (digits.length === 10) data.phone_number = `+1${digits}`;
+  else if (digits.length === 11 && digits[0] === '1') data.phone_number = `+${digits}`;
+  return data;
+};
+const trackLead = (done, ads = true, event = 'generate_lead', userData = {}) => {
   let called = false;
   const finish = () => { if (!called && done) { called = true; done(); } };
   gaEvent(event);
   if (adsOn && ads) {
+    if (Object.keys(userData).length) gtag('set', 'user_data', userData);
     gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
     setTimeout(finish, 1500);
   } else finish();
@@ -247,10 +259,11 @@ document.addEventListener('click', (e) => {
           const r = await fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
           const res = await r.json().catch(() => ({}));
           if (!r.ok || res.success === false) throw new Error();
+          const userData = leadUserData(data.get('email'), data.get('phone'));
           form.reset();
           // Forms with data-thanks go to that thank-you page once the request is sent.
           const thanks = form.dataset.thanks;
-          trackLead(thanks ? () => { location.href = thanks; } : undefined, form.dataset.adsConversion !== 'off', form.dataset.gaEvent || 'generate_lead');
+          trackLead(thanks ? () => { location.href = thanks; } : undefined, form.dataset.adsConversion !== 'off', form.dataset.gaEvent || 'generate_lead', userData);
           status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
