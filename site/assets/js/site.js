@@ -35,10 +35,21 @@ const trackContact = (label) => {
   if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${label}` });
   gaEvent('phone_call', { method: label === ADS_TEXT_LABEL ? 'text' : 'call' });
 };
-// Email and social-profile link clicks.
+// Google Ads conversions carried over from the Wix site: email link clicks, and the
+// Services page buttons for a free individual session and for group sessions.
+const ADS_EMAIL_LABEL = 'mHGMCPiR-7IcEISajKEC';
+const ADS_CTA_LABELS = { individual: 'UDC0CP6R-7IcEISajKEC', group: 'PoafCIGS-7IcEISajKEC' };
+const adsConversion = (label) => { if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${label}` }); };
+// Email, social-profile and free-session button clicks.
 document.addEventListener('click', (e) => {
-  const href = e.target.closest?.('a[href]')?.getAttribute('href') || '';
-  if (href.startsWith('mailto:')) gaEvent('email_contact');
+  const link = e.target.closest?.('a[href]');
+  const href = link?.getAttribute('href') || '';
+  const cta = link?.dataset.cta;
+  if (cta && ADS_CTA_LABELS[cta]) {
+    adsConversion(ADS_CTA_LABELS[cta]);
+    gaEvent(`cta_free_${cta}_session`);
+  }
+  if (href.startsWith('mailto:')) { adsConversion(ADS_EMAIL_LABEL); gaEvent('email_contact'); }
   else if (/^https:\/\/(www\.)?(facebook|instagram|linkedin)\.com\//.test(href)) gaEvent('outbound_social', { link_url: href });
 });
 
