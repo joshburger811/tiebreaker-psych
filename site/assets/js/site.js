@@ -18,11 +18,17 @@ if (adsOn) {
   gtag('config', ADS_CONVERSION.id);
   gtag('config', GA4_ID);
 }
+// Named GA4 events, matching the ones the Wix site sent: generate_lead, phone_call,
+// email_contact and outbound_social.
+const gaEvent = (name, params = {}) => {
+  if (adsOn) gtag('event', name, { ...params, send_to: GA4_ID });
+};
 // Counts a lead, then runs `done` (if given) once Google Ads has the event, or after
 // 1.5 seconds at most, so leaving the page right after doesn't lose the conversion.
 const trackLead = (done) => {
   let called = false;
   const finish = () => { if (!called && done) { called = true; done(); } };
+  gaEvent('generate_lead');
   if (adsOn) {
     gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
     setTimeout(finish, 1500);
@@ -34,7 +40,14 @@ const ADS_CALL_LABEL = 'IcESCPuR-7IcEISajKEC';
 const ADS_TEXT_LABEL = 'gGafCJC3tLodEISajKEC';
 const trackContact = (label) => {
   if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${label}` });
+  gaEvent('phone_call', { method: label === ADS_TEXT_LABEL ? 'text' : 'call' });
 };
+// Email and social-profile link clicks.
+document.addEventListener('click', (e) => {
+  const href = e.target.closest?.('a[href]')?.getAttribute('href') || '';
+  if (href.startsWith('mailto:')) gaEvent('email_contact');
+  else if (/^https:\/\/(www\.)?(facebook|instagram|linkedin)\.com\//.test(href)) gaEvent('outbound_social', { link_url: href });
+});
 
 (() => {
   const header = document.querySelector('[data-header]');
