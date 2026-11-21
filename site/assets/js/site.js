@@ -26,11 +26,12 @@ const gaEvent = (name, params = {}) => {
 // Counts a lead, then runs `done` (if given) once Google Ads has the event, or after
 // 1.5 seconds at most, so leaving the page right after doesn't lose the conversion.
 // With ads = false (forms marked data-ads-conversion="off", such as Speak), only the GA4
-// event is sent, not the intro-session Ads conversion.
-const trackLead = (done, ads = true) => {
+// event is sent, not the intro-session Ads conversion. `event` is the GA4 event name
+// (forms can set their own with data-ga-event, e.g. Speak's speaking_request).
+const trackLead = (done, ads = true, event = 'generate_lead') => {
   let called = false;
   const finish = () => { if (!called && done) { called = true; done(); } };
-  gaEvent('generate_lead');
+  gaEvent(event);
   if (adsOn && ads) {
     gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
     setTimeout(finish, 1500);
@@ -249,7 +250,7 @@ document.addEventListener('click', (e) => {
           form.reset();
           // Forms with data-thanks go to that thank-you page once the request is sent.
           const thanks = form.dataset.thanks;
-          trackLead(thanks ? () => { location.href = thanks; } : undefined, form.dataset.adsConversion !== 'off');
+          trackLead(thanks ? () => { location.href = thanks; } : undefined, form.dataset.adsConversion !== 'off', form.dataset.gaEvent || 'generate_lead');
           status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
