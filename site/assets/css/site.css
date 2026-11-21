@@ -385,6 +385,8 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 @media (max-width: 920px) {
   .hero-grid, .split, .form-split, .about-grid { grid-template-columns: 1fr; }
   .hero-media { order: -1; }
+  .hero-home .hero-media { order: 0; }
+  .hero-home .hero-copy { padding-top: 0; }
   .hero-media > img { aspect-ratio: 16 / 10; }
   .split-media img { aspect-ratio: 16 / 10; object-position: 50% 40%; }
   .hero-badge { left: 16px; bottom: -22px; }
