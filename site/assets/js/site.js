@@ -1,4 +1,6 @@
-// Google Ads lead tracking.
+// Google Analytics (GA4) and Google Ads lead tracking.
+// GA4 measurement ID: the same property the Wix site reported to (via its Tag Manager container).
+const GA4_ID = 'G-YCRZMP46P6';
 // Conversion ID and label of the "Introductory Sign-Up Lead Form"
 // conversion in Google Ads. Tracking only runs on the live site, so test submissions on
 // preview links and localhost are never counted as leads.
@@ -14,9 +16,16 @@ if (adsOn) {
   document.head.appendChild(tag);
   gtag('js', new Date());
   gtag('config', ADS_CONVERSION.id);
+  gtag('config', GA4_ID);
 }
+// Named GA4 events, matching the ones the Wix site sent: generate_lead, phone_call,
+// email_contact and outbound_social.
+const gaEvent = (name, params = {}) => {
+  if (adsOn) gtag('event', name, { ...params, send_to: GA4_ID });
+};
 const trackLead = () => {
   if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}` });
+  gaEvent('generate_lead');
 };
 // Labels of the "Contact | Phone Call" and "Contact | Text Message" conversions in Google Ads,
 // counted when a visitor taps Call or Text in the phone-number menu.
@@ -24,7 +33,14 @@ const ADS_CALL_LABEL = 'IcESCPuR-7IcEISajKEC';
 const ADS_TEXT_LABEL = 'gGafCJC3tLodEISajKEC';
 const trackContact = (label) => {
   if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${label}` });
+  gaEvent('phone_call', { method: label === ADS_TEXT_LABEL ? 'text' : 'call' });
 };
+// Email and social-profile link clicks.
+document.addEventListener('click', (e) => {
+  const href = e.target.closest?.('a[href]')?.getAttribute('href') || '';
+  if (href.startsWith('mailto:')) gaEvent('email_contact');
+  else if (/^https:\/\/(www\.)?(facebook|instagram|linkedin)\.com\//.test(href)) gaEvent('outbound_social', { link_url: href });
+});
 
 (() => {
   const header = document.querySelector('[data-header]');
