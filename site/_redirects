@@ -5,3 +5,8 @@
 /event-details/tiebreaker-psych-managing-stress-during-a-global-pandemic  /webinar-may2nd  301
 /event-details/healthy-habits-during-unprecedented-times  /media  301
 /home  /  301
+/intro-session  /#get-started  301
+/schedule  /media  301
+/event-details  /media  301
+/:page/  /:page  301
+/:section/:page/  /:section/:page  301

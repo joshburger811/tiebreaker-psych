@@ -1,4 +1,6 @@
-// Google Ads lead tracking.
+// Google Analytics (GA4) and Google Ads lead tracking.
+// GA4 measurement ID: the same property the Wix site reported to (via its Tag Manager container).
+const GA4_ID = 'G-YCRZMP46P6';
 // Conversion ID and label of the "Introductory Sign-Up Lead Form"
 // conversion in Google Ads. Tracking only runs on the live site, so test submissions on
 // preview links and localhost are never counted as leads.
@@ -14,6 +16,7 @@ if (adsOn) {
   document.head.appendChild(tag);
   gtag('js', new Date());
   gtag('config', ADS_CONVERSION.id);
+  gtag('config', GA4_ID);
 }
 // Counts a lead, then runs `done` (if given) once Google Ads has the event, or after
 // 1.5 seconds at most, so leaving the page right after doesn't lose the conversion.
