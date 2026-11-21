@@ -15,7 +15,7 @@ These are the owner's standing rules. Follow them in every session.
 - **Clickable links.** Whenever you mention a website or page to the owner (staging and live links, and outside sites like web3forms.com), write it as a clickable markdown link, e.g. [web3forms.com](https://web3forms.com). Never leave it as plain text or in code formatting.
 - **Staging first, always.** Never push or merge anything to production (`main`) unless that exact change is already on staging and the owner has confirmed it looks good. This includes small fixes, text-only edits and undos.
 - **Changes that don't touch the website** (only these instructions, README/LAUNCH notes or config that doesn't change what visitors see): don't send a staging link, because it's confusing. Describe the change in plain words and ask "Ready to publish this?", then merge once the owner says yes. Anything under `site/`, or anything that could change how the site looks or behaves, still follows "Staging first, always".
-- **Going live.** Once the owner confirms the staging version looks good, ask "Ready to publish this to the live site?" (or treat their confirmation as the go-ahead if they've already said to publish), then merge. Confirm in one line once it's live, and always include the live link to each page that changed (for example `https://tiebreaker-psych.burger-josh.workers.dev/about`).
+- **Going live.** Once the owner confirms the staging version looks good, ask "Ready to publish this to the live site?" (or treat their confirmation as the go-ahead if they've already said to publish), then merge. Confirm in one line once it's live, and always include the live link to each page that changed (for example `https://www.tiebreakerpsych.com/about`).
 - **Reminders about other pending changes.** Don't mention other ongoing or unpublished changes (open pull requests from `staging-*` branches) in replies, except in these two cases:
   1. **The owner asks for a change that's already in progress** in another conversation: tell him, and send the link to that conversation and its staging link.
   2. **Right after publishing:** say it's published, then suggest the other ongoing changes as next steps, one line each with its staging link and the link to its conversation.
@@ -38,7 +38,7 @@ Every change gets its own staging branch and link, so several conversations can 
 - One staging branch per conversation or topic. Never push to another conversation's staging branch, and never reuse a branch whose pull request has been merged or closed.
 - The old shared `staging` branch is retired. Don't use it.
 
-Live site (until the domain is switched): `https://tiebreaker-psych.burger-josh.workers.dev`.
+Live site: `https://www.tiebreakerpsych.com` (launched November 21, 2026). Always send live links on this address. The old `https://tiebreaker-psych.burger-josh.workers.dev` address now forwards there.
 
 ## Workflow
 
