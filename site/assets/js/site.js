@@ -5,7 +5,8 @@ const GA4_ID = 'G-YCRZMP46P6';
 // conversion in Google Ads. Tracking only runs on the live site, so test submissions on
 // preview links and localhost are never counted as leads.
 const ADS_CONVERSION = { id: 'AW-606276868', label: '4t1wCNKalNsBEISajKEC' };
-const ADS_LIVE_HOSTS = ['tiebreakerpsych.com', 'www.tiebreakerpsych.com', 'tiebreaker-psych.burger-josh.workers.dev'];
+// Only the real domain counts: test submissions on the workers.dev address are not leads.
+const ADS_LIVE_HOSTS = ['tiebreakerpsych.com', 'www.tiebreakerpsych.com'];
 const adsOn = Boolean(ADS_CONVERSION.id && ADS_CONVERSION.label && ADS_LIVE_HOSTS.includes(location.hostname));
 window.dataLayer = window.dataLayer || [];
 function gtag() { window.dataLayer.push(arguments); }
@@ -25,11 +26,13 @@ const gaEvent = (name, params = {}) => {
 };
 // Counts a lead, then runs `done` (if given) once Google Ads has the event, or after
 // 1.5 seconds at most, so leaving the page right after doesn't lose the conversion.
-const trackLead = (done) => {
+// With ads = false (forms marked data-ads-conversion="off", such as Speak), only the GA4
+// event is sent, not the intro-session Ads conversion.
+const trackLead = (done, ads = true) => {
   let called = false;
   const finish = () => { if (!called && done) { called = true; done(); } };
   gaEvent('generate_lead');
-  if (adsOn) {
+  if (adsOn && ads) {
     gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
     setTimeout(finish, 1500);
   } else finish();
@@ -236,7 +239,7 @@ document.addEventListener('click', (e) => {
           form.reset();
           // Forms with data-thanks go to that thank-you page once the request is sent.
           const thanks = form.dataset.thanks;
-          trackLead(thanks ? () => { location.href = thanks; } : undefined);
+          trackLead(thanks ? () => { location.href = thanks; } : undefined, form.dataset.adsConversion !== 'off');
           status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
