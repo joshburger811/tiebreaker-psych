@@ -15,8 +15,15 @@ if (adsOn) {
   gtag('js', new Date());
   gtag('config', ADS_CONVERSION.id);
 }
-const trackLead = () => {
-  if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}` });
+// Counts a lead, then runs `done` (if given) once Google Ads has the event, or after
+// 1.5 seconds at most, so leaving the page right after doesn't lose the conversion.
+const trackLead = (done) => {
+  let called = false;
+  const finish = () => { if (!called && done) { called = true; done(); } };
+  if (adsOn) {
+    gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
+    setTimeout(finish, 1500);
+  } else finish();
 };
 // Labels of the "Contact | Phone Call" and "Contact | Text Message" conversions in Google Ads,
 // counted when a visitor taps Call or Text in the phone-number menu.
@@ -211,7 +218,9 @@ const trackContact = (label) => {
           const res = await r.json().catch(() => ({}));
           if (!r.ok || res.success === false) throw new Error();
           form.reset();
-          trackLead();
+          // Forms with data-thanks go to that thank-you page once the request is sent.
+          const thanks = form.dataset.thanks;
+          trackLead(thanks ? () => { location.href = thanks; } : undefined);
           status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
