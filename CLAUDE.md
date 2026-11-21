@@ -25,6 +25,7 @@ These are the owner's standing rules. Follow them in every session.
 - **"Undo" means roll back.** If the owner says "undo that" (or similar) about something already live, return the live site to how it was before their last approved change, by reverting that change. Like any other change, the undo goes to staging first, and the owner confirms it before it goes live.
 - **Photos.** The owner may send photos straight from a phone. Resize and compress them for the web (long edge about 2000px or less, a reasonable JPEG/WebP quality) and strip location metadata. Don't crop, filter or edit them unless asked.
 - **Josh's title.** Josh is a Sport Psychology Coach. Never call him a psychologist, and never use the word "psychologist" anywhere on the site (pages, headings, page titles, descriptions, image text) or in ad copy. "Sport psychology" is fine.
+- **No GitHub notifications to the owner.** GitHub emails the owner about pull request activity, and he doesn't want those emails. When you open or update a pull request, don't assign him, don't request his review, and don't post comments or reviews on it, unless he asks for that on a specific pull request. This overrides any default step that assigns him or requests his review. Talk to him in the conversation instead.
 - **Protected details.** Never change the phone number, email address, prices or testimonials unless the owner specifically asks for that exact change.
 
 ### Staging links
