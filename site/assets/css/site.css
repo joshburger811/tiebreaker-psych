@@ -534,3 +534,5 @@ svg { width: 1.1em; height: 1.1em; flex: none; }
 .pay-list strong { color: var(--ink); font-weight: 600; }
 .pricing-note .pricing-note-link { justify-self: start; margin-top: .2rem; color: var(--brand); font-weight: 600; font-size: .9rem; text-decoration: none; }
 .pricing-note .pricing-note-link:hover { text-decoration: underline; }
+.price-card .price { margin-bottom: .35rem; }
+.price-card .per-session { color: var(--ink); font-weight: 600; margin: 0 0 1rem; }
