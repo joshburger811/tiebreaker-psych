@@ -2,10 +2,10 @@
 // GA4 measurement ID: the same property the Wix site reported to (via its Tag Manager container).
 const GA4_ID = 'G-YCRZMP46P6';
 // Conversion ID and label of the "Introductory Sign-Up Lead Form"
-// conversion in Google Ads. Tracking only runs on the live site, so test submissions on
-// preview links and localhost are never counted as leads.
+// conversion in Google Ads. Tracking (Ads and Analytics) only runs on tiebreakerpsych.com, so test
+// visits and submissions on preview links, the workers.dev address and localhost are never counted.
 const ADS_CONVERSION = { id: 'AW-606276868', label: '4t1wCNKalNsBEISajKEC' };
-const ADS_LIVE_HOSTS = ['tiebreakerpsych.com', 'www.tiebreakerpsych.com', 'tiebreaker-psych.burger-josh.workers.dev'];
+const ADS_LIVE_HOSTS = ['tiebreakerpsych.com', 'www.tiebreakerpsych.com'];
 const adsOn = Boolean(ADS_CONVERSION.id && ADS_CONVERSION.label && ADS_LIVE_HOSTS.includes(location.hostname));
 window.dataLayer = window.dataLayer || [];
 function gtag() { window.dataLayer.push(arguments); }
@@ -23,9 +23,18 @@ if (adsOn) {
 const gaEvent = (name, params = {}) => {
   if (adsOn) gtag('event', name, { ...params, send_to: GA4_ID });
 };
-const trackLead = () => {
-  if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}` });
+// Counts a lead, then runs `done` (if given) once Google Ads has the event, or after
+// 1.5 seconds at most, so leaving the page right after doesn't lose the conversion.
+// With ads = false (forms marked data-ads-conversion="off", such as Speak), only the GA4
+// event is sent, not the intro-session Ads conversion.
+const trackLead = (done, ads = true) => {
+  let called = false;
+  const finish = () => { if (!called && done) { called = true; done(); } };
   gaEvent('generate_lead');
+  if (adsOn && ads) {
+    gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
+    setTimeout(finish, 1500);
+  } else finish();
 };
 // Labels of the "Contact | Phone Call" and "Contact | Text Message" conversions in Google Ads,
 // counted when a visitor taps Call or Text in the phone-number menu.
@@ -35,10 +44,21 @@ const trackContact = (label) => {
   if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${label}` });
   gaEvent('phone_call', { method: label === ADS_TEXT_LABEL ? 'text' : 'call' });
 };
-// Email and social-profile link clicks.
+// Google Ads conversions carried over from the Wix site: email link clicks, and the
+// Services page buttons for a free individual session and for group sessions.
+const ADS_EMAIL_LABEL = 'mHGMCPiR-7IcEISajKEC';
+const ADS_CTA_LABELS = { individual: 'UDC0CP6R-7IcEISajKEC', group: 'PoafCIGS-7IcEISajKEC' };
+const adsConversion = (label) => { if (adsOn) gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${label}` }); };
+// Email, social-profile and free-session button clicks.
 document.addEventListener('click', (e) => {
-  const href = e.target.closest?.('a[href]')?.getAttribute('href') || '';
-  if (href.startsWith('mailto:')) gaEvent('email_contact');
+  const link = e.target.closest?.('a[href]');
+  const href = link?.getAttribute('href') || '';
+  const cta = link?.dataset.cta;
+  if (cta && ADS_CTA_LABELS[cta]) {
+    adsConversion(ADS_CTA_LABELS[cta]);
+    gaEvent(`cta_free_${cta}_session`);
+  }
+  if (href.startsWith('mailto:')) { adsConversion(ADS_EMAIL_LABEL); gaEvent('email_contact'); }
   else if (/^https:\/\/(www\.)?(facebook|instagram|linkedin)\.com\//.test(href)) gaEvent('outbound_social', { link_url: href });
 });
 
@@ -227,7 +247,9 @@ document.addEventListener('click', (e) => {
           const res = await r.json().catch(() => ({}));
           if (!r.ok || res.success === false) throw new Error();
           form.reset();
-          trackLead();
+          // Forms with data-thanks go to that thank-you page once the request is sent.
+          const thanks = form.dataset.thanks;
+          trackLead(thanks ? () => { location.href = thanks; } : undefined, form.dataset.adsConversion !== 'off');
           status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
