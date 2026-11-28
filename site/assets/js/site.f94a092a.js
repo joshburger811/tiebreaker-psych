@@ -26,12 +26,59 @@ if (adsOn) {
   !function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f);}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
   window.oaiq('init', { pixelId: OPENAI_PIXEL_ID });
 }
-const chatgptLead = () => {
+const newLeadId = () => (window.crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`);
+const chatgptLead = (id = newLeadId()) => {
   try {
     if (!adsOn || !window.oaiq) return;
-    const id = window.crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
     window.oaiq('measure', 'lead_created', { type: 'customer_action' }, { event_id: id });
   } catch { /* tracking must never get in the way of the form */ }
+};
+// Where the visitor came from, shown as "Came from" in each request email and in the leads
+// sheet: "ChatGPT ad", "Google ad" or "Website". A click on one of our ads is remembered in
+// this browser for 30 days, so it still counts if they look around before filling out the form.
+const LEAD_SOURCE_KEY = 'tbp-lead-source';
+const leadSource = (() => {
+  try {
+    const p = new URLSearchParams(location.search);
+    const utm = (p.get('utm_source') || '').toLowerCase();
+    let src = '';
+    if (p.has('oppref') || utm.includes('chatgpt') || utm.includes('openai')) src = 'ChatGPT ad';
+    else if (p.has('gclid') || p.has('gbraid') || p.has('wbraid')) src = 'Google ad';
+    if (src) {
+      localStorage.setItem(LEAD_SOURCE_KEY, JSON.stringify({ src, t: Date.now() }));
+      return src;
+    }
+    const saved = JSON.parse(localStorage.getItem(LEAD_SOURCE_KEY) || 'null');
+    if (saved && saved.src && Date.now() - saved.t < 30 * 864e5) return saved.src;
+  } catch { /* storage blocked: fall through */ }
+  return 'Website';
+})();
+// Intro requests are also added to the "Tiebreaker Psych - Google Ads Leads" sheet, through the
+// sheet's Apps Script web app. The key is public (it's in this file); it only filters out junk.
+// Requests sent from preview links or localhost are marked "Test lead: Yes" in the sheet.
+const LEADS_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzrIzE3ubJwHrdnU4uW037Btq7nghTrCB64aNHhsjKg9wvaXkfckSWkY5zdgDUSSw/exec';
+const LEADS_SHEET_KEY = 'tbp-site-3432a99104288c4e';
+const sendLeadToSheet = (data, leadId) => {
+  try {
+    const age = data.get('athlete-age');
+    const answers = [data.get('sport'), age && `Athlete age: ${age}`, data.get('message')].filter(Boolean).join('; ');
+    fetch(LEADS_SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      keepalive: true,
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        site_key: LEADS_SHEET_KEY,
+        lead_id: leadId,
+        name: data.get('full-name') || data.get('parent-name') || '',
+        email: data.get('email') || '',
+        phone: data.get('phone') || '',
+        answers,
+        came_from: leadSource,
+        is_test: !ADS_LIVE_HOSTS.includes(location.hostname),
+      }),
+    }).catch(() => {});
+  } catch { /* the sheet must never get in the way of the form */ }
 };
 // Named GA4 events, matching the ones the Wix site sent: generate_lead, phone_call,
 // email_contact and outbound_social.
@@ -54,11 +101,11 @@ const leadUserData = (email, phone) => {
   else if (digits.length === 11 && digits[0] === '1') data.phone_number = `+${digits}`;
   return data;
 };
-const trackLead = (done, ads = true, event = 'generate_lead', userData = {}) => {
+const trackLead = (done, ads = true, event = 'generate_lead', userData = {}, leadId = newLeadId()) => {
   let called = false;
   const finish = () => { if (!called && done) { called = true; done(); } };
   gaEvent(event);
-  if (ads) chatgptLead();
+  if (ads) chatgptLead(leadId);
   if (adsOn && ads) {
     if (Object.keys(userData).length) gtag('set', 'user_data', userData);
     gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
@@ -266,6 +313,13 @@ document.addEventListener('click', (e) => {
       if (form.botcheck && form.botcheck.checked) return;
 
       const data = new FormData(form);
+      // Intro requests (not Speak) say where the visitor came from, in the subject and the email.
+      const isLead = form.dataset.adsConversion !== 'off';
+      const leadId = newLeadId();
+      if (isLead) {
+        data.set('subject', `${data.get('subject') || 'New free intro session request'} - from ${leadSource}`);
+        data.set('Came from', leadSource);
+      }
       if (form.action && form.getAttribute('action')) {
         sending = true;
         submitBtn.disabled = true;
@@ -279,7 +333,8 @@ document.addEventListener('click', (e) => {
           form.reset();
           // Forms with data-thanks go to that thank-you page once the request is sent.
           const thanks = form.dataset.thanks;
-          trackLead(thanks ? () => { location.href = thanks; } : undefined, form.dataset.adsConversion !== 'off', form.dataset.gaEvent || 'generate_lead', userData);
+          if (isLead) sendLeadToSheet(data, leadId);
+          trackLead(thanks ? () => { location.href = thanks; } : undefined, isLead, form.dataset.gaEvent || 'generate_lead', userData, leadId);
           status.textContent = form.dataset.success || 'Thanks! Josh will be in touch soon to schedule your free session.';
           status.classList.add('ok');
         } catch {
