@@ -18,6 +18,21 @@ if (adsOn) {
   gtag('config', ADS_CONVERSION.id);
   gtag('config', GA4_ID);
 }
+// ChatGPT ads (OpenAI Ads Manager) measurement pixel, for the "tiebreakerpsych.com" data source.
+// Same rule as Google: only runs on the live site. The pixel reads the ad-click ID (oppref) from
+// the landing page address itself; the only event sent is lead_created, after an intro request.
+const OPENAI_PIXEL_ID = '3DpW9MFf1bi1inCq2GebWX';
+if (adsOn) {
+  !function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f);}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+  window.oaiq('init', { pixelId: OPENAI_PIXEL_ID });
+}
+const chatgptLead = () => {
+  try {
+    if (!adsOn || !window.oaiq) return;
+    const id = window.crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    window.oaiq('measure', 'lead_created', { type: 'customer_action' }, { event_id: id });
+  } catch { /* tracking must never get in the way of the form */ }
+};
 // Named GA4 events, matching the ones the Wix site sent: generate_lead, phone_call,
 // email_contact and outbound_social.
 const gaEvent = (name, params = {}) => {
@@ -43,6 +58,7 @@ const trackLead = (done, ads = true, event = 'generate_lead', userData = {}) => 
   let called = false;
   const finish = () => { if (!called && done) { called = true; done(); } };
   gaEvent(event);
+  if (ads) chatgptLead();
   if (adsOn && ads) {
     if (Object.keys(userData).length) gtag('set', 'user_data', userData);
     gtag('event', 'conversion', { send_to: `${ADS_CONVERSION.id}/${ADS_CONVERSION.label}`, event_callback: finish });
